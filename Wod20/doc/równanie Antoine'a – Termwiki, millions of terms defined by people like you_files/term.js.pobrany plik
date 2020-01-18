@@ -1,0 +1,265 @@
+function openwin(url){
+    		window.open(url,null,"width=500,height=510");
+		}
+
+$('#showAttributeLink').click(function(){
+	$('.moreAttributes').fadeIn();
+	$('#showAttributeLink').hide();
+	$('#hiddenAttributeLink').show();
+});
+$('#hiddenAttributeLink').click(function(){
+	$('.moreAttributes').fadeOut();
+	$('#showAttributeLink').show();
+	$('#hiddenAttributeLink').hide();
+});
+
+$('#showMoreLanguage').click(function(){
+	$('.moreLanguage').fadeIn();
+	$('#showMoreLanguage').hide();
+	$('#hideMoreLanguage').show();
+});
+$('#hideMoreLanguage').click(function(){
+	$('.moreLanguage').fadeOut();
+	$('#showMoreLanguage').show();
+	$('#hideMoreLanguage').hide();
+});
+
+$(document).ready(function() {
+	$('*[imgdata]').each(function() {
+		$(this).attr('src', $(this).attr('imgdata'));
+	})
+	
+	$('*[rate]').click(function(){
+		if($(this).hasClass('up_active'))
+			{show_rate_vote(1);}else{show_rate_vote(0);}
+		
+	})
+	
+	$('#news_term_'+pageid).hide();	
+	
+	
+	if($('#more_termwiki_term').length>0){
+		$(function(){
+		var limit = 2;
+		var page = 0;
+		var namespace_int = $('#more_term_container').attr('term_namespace_int');
+		var load = 'false';
+
+		$(window).scroll(function(){
+
+			if($('.ad_module').length>0){
+				if($('.ad_module').offset().top>100){
+					$('body').addClass('has-scrolled');
+				}
+				if($('.ad_module').offset().top<=100){
+					$('body').removeClass('has-scrolled');
+				}
+			}
+			
+			
+			if( $(document).scrollTop() + $(window).height() > $(document).height() - 300  && load=='false' ){
+				
+				load='true';
+				$('.loadingMoreTermWeb').show();
+			    var data = {limit: limit,page:page,namespace_int:namespace_int};
+			    var ajaxRequestUrl = '/termwiki_term_api_ajax.jsp';
+			    $.ajax({
+			        type     : "POST",
+			        url      : ajaxRequestUrl,
+			        data    : data,
+			        success    : function(response){ 
+			        	
+			        	var $container = $('#more_term_container');
+			        	var $boxes = '';
+			        	if(response==''){
+			        		$boxes = $('<div style="text-align:center;" >There are no terms.</div>');
+			        		$container.after($boxes);
+				            load='true';
+				            $('.loadingMoreTermWeb').hide();
+			        	}else{
+			        		
+			        		$container.append(response);
+				        
+				            page=page+1;
+				            load='false';
+				            $('.loadingMoreTermWeb').hide();
+			        	}
+			        	
+			        	
+			            
+			        }
+			    });
+
+		}
+
+		});			
+
+		});  	
+		}
+	
+	fix_top();
+	
+});
+
+function show_rate_vote(like) {
+//	if(tw_user_id<1)
+//	{
+//		$("#rate-vote").html($('#vote_no_login').html());
+//		$("#rate-vote").show();
+//		setTimeout('$("#rate-vote").hide()', 1000);
+//		return;
+//	}
+//	
+	$.ajax({
+        type     : "POST",
+        url      : weburl+'ajax.jsp',
+        dataType : 'json',
+        data    : {act:'term_vote',pageid:pageid,like:like},
+        success    : function(response){
+        	if(response.error!="")
+        	{
+        		$("#rate-vote").html(response.error);
+        		$("#rate-vote").addClass('error');
+        		$("#rate-vote").show();
+        		setTimeout('$("#rate-vote").hide()', 1000);
+        		
+        	}else if(response.success!=""){
+        		$("#rate-vote").html(response.success);
+        		$("#rate-vote").removeClass('error');
+        		$("#rate-vote").show();
+        		setTimeout('$("#rate-vote").hide()', 1000);
+        		$('.rateresult-like').html(response.like);
+        		$('.rateresult-dislike').html(response.dislike);
+        	}
+        }
+    });
+	
+	
+}
+
+function show_improve_alert()
+{
+    $("#editor_nologin_id").show();
+    $('#machine_translated_term').hide();
+    $('#improve-definition-button').hide();
+    setTimeout('$("#editor_nologin_id").hide()',2000);
+    
+    setTimeout('$("#machine_translated_term").show()',2000);
+    setTimeout('$("#improve-definition-button").show()',2000);
+}
+$("#improve-definition-button-login").click(function() {
+	if($('#termDefinition').is(":hidden"))
+	{
+		return;
+	}
+	$('#termDefinition').hide();
+	$('#machine_translated_term_login').hide();
+    $('#improve-definition-button-login').hide();
+	
+	var tid=$(this).attr("tid");
+	var wgCurRevisionId=$(this).attr("wgCurRevisionId");
+	var data = {tid:tid,wgCurRevisionId:wgCurRevisionId};
+    var ajaxRequestUrl = '/update_term_definition_ajax.jsp';
+    $.ajax({
+        type     : "POST",
+        url      : ajaxRequestUrl,
+        data    : data,
+        success    : function(response){
+            	$('#termDefinition').after(response);
+                if(typeof(Tino)!='undefined')
+                {
+                    Tino.attachBehaviors();
+                }
+        }
+    });
+
+});
+
+$("#machine_translated_term_login").click(function() {
+	if($('#termDefinition').is(":hidden"))
+	{
+		return;
+	}
+	$('#termDefinition').hide();
+	$('#machine_translated_term_login').hide();
+    $('#improve-definition-button-login').hide();
+	
+	var tid=$(this).attr("tid");
+	var wgCurRevisionId=$(this).attr("wgCurRevisionId");
+	var data = {tid:tid,wgCurRevisionId:wgCurRevisionId};
+    var ajaxRequestUrl = '/update_term_definition_ajax.jsp';
+    $.ajax({
+        type     : "POST",
+        url      : ajaxRequestUrl,
+        data    : data,
+        success    : function(response){
+            	$('#termDefinition').after(response);
+            	if(typeof(Tino)!='undefined')
+                {
+                    Tino.attachBehaviors();
+                }
+        }
+    });
+});
+
+var Mar = document.getElementById("Marquee");
+var child_div = '';
+var Marquee_length = 0;
+var Marquee_n = 1;
+if((typeof(Mar) != 'undefined')&&(Mar != null))
+{
+     child_div = Mar.getElementsByTagName("div");
+     Marquee_length = child_div.length;
+}
+
+
+function Marquee_start(type) {
+
+	if (type) {
+		Marquee_n++;
+		Mar.appendChild(child_div[0]);
+	} else {
+		Marquee_n--;
+		var t = Marquee_length - 1;
+		Mar.insertBefore(child_div[t], child_div[0]);
+
+	}
+	if (Marquee_n < 1) {
+		Marquee_n = Marquee_length;
+	}
+	if (Marquee_n > Marquee_length) {
+		Marquee_n = 1;
+	}
+	$('#curr_simple_image').html(Marquee_n);
+}
+function Marquee_next() {
+	Marquee_start(true);
+}
+function Marquee_pre() {
+	Marquee_start(false);
+}
+function OnEnter( field ) { $('.To_Comments_box02').css('color','#333'); $('.To_Comments_box01').css('color','#333'); if( field.value == "Leave a message ..." ) { field.value = ""; } }
+function OnExit( field ) { if( field.value == "" ) { field.value = "Leave a message ..."; } }
+function reset_textarea(){
+     $("#page_description").val("");
+}
+
+
+
+
+//by jessie for question
+function reset_answer_textarea(){
+     $(".page_description").val("");
+     var num = 1; 
+     var count = num + Number($("#count").text());
+     $("#count").text(count);
+
+}
+
+function addTermToMyGlossary()
+{
+	if(typeof(pageid)=='undefined'){return;}
+	alert('Great! This term has been collected.');
+	window.location.reload();
+
+}

@@ -1,0 +1,28 @@
+// JavaScript Document
+
+var is_iframe;
+var top_location;
+
+    try
+    {
+    var top_location = top.location.href;
+    }
+    catch(e){}
+    var is_iframe = false;
+    if(location.href != top_location)
+    {
+        var is_iframe = true;
+    } else {
+       document.writeln ('<link rel="stylesheet" href="http://www.ddbst.com/system/scripts/bc79cacbc7f0.css" media="all">');
+       document.writeln ('<script src="http://www.ddbst.com/system/scripts/d7c22699746a.js"></script>');
+       document.writeln ('<link rel="stylesheet" href="http://www.ddbst.com/files/css/style.css" type="text/css" media="all" />');
+document.writeln ('<!--[if lt IE 8]><link rel="stylesheet" href="http://www.ddbst.com/files/css/style_ie_unsupported.css" type="text/css" media="all" /><![endif]-->');
+       document.writeln ('<script type="text/javascript" src="http://www.ddbst.com/files/jscript/jquery.js"></script>  ');
+       document.writeln ('<script type="text/javascript" src="http://www.ddbst.com/files/jscript/jquery.corner.js"></script>   ');
+	    document.writeln ('<!--[if lt IE 9]><script src="http://www.ddbst.com/plugins/html5shim/html5-3.js"></script><![endif]--> ');
+    }
+
+
+var kopf='<div id="wrapper">  <div id="header" class="round">  <div id="logo"><a href="http://www.ddbst.com/">ddbst</a></div>  <div id="mainNav"> <!-- indexer::stop --> <nav class="mod_navigation block"> <a href="http://www.ddbst.com/online-ddb-form.html#skipNavigation1" class="invisible">Navigation überspringen</a> <ul class="level_1"> <li class="submenu first"><a href="http://www.ddbst.com/" title="DDBST GmbH" class="submenu first">DDBST GmbH</a> </li> </ul> <a id="skipNavigation1" class="invisible">&nbsp;</a> </nav> <!-- indexer::continue -->  </div>  </div>  <div id="content" class="">  <div id="cHead">  &nbsp;          </div>  <div id="cLeft"> <!-- indexer::stop --> <nav class="mod_navigation block"> <a href="http://www.ddbst.com/online-ddb-form.html#skipNavigation3" class="invisible">Navigation überspringen</a> <a id="skipNavigation3" class="invisible">&nbsp;</a> </nav> <!-- indexer::continue --> <ul class="level_1"> <li class="submenu first"><a href="http://www.ddbst.com/online.html" title="DDB Online Services" class="submenu first"><font color="black">Onlines Services</font></a> </li></ul> </div>  <div id="cMain"> <div class="mod_article block" id="online-ddb-form"> <div class="ce_text block"> </div>';
+
+var fuss = '</div>  </div>  <div id="cRight"> <!-- indexer::stop --> <div class="mod_newslist block"> </div> <!-- indexer::continue -->  </div>  </div>  </div> <script type="text/javascript" src="http://www.ddbst.com/files/jscript/functions.js" charset="utf-8"></script>';

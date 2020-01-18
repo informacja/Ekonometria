@@ -1,0 +1,6 @@
+$(document).ready(function() {
+ var res = $(".nazwaSubChemSt").text();
+ res = res.replace("<B>","");
+ res = res.replace("</B>","");
+ $('title').html(res);
+});

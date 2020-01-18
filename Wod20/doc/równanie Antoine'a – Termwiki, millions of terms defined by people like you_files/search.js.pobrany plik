@@ -1,0 +1,19 @@
+$(document).ready(function() {
+		$('.search_input').keyup(function(e) {
+			if(e.keyCode == 13) {
+				var form = $(this).parents("form");
+				form.submit();
+			}
+		});
+		
+		$('.search_submit').click(function(e) {
+			var form = $(this).parents("form");
+			form.submit();
+		});
+		$('#search_button').click(function(){
+			$(this).hide();
+			$('.search-box').show();
+		});
+	
+
+});

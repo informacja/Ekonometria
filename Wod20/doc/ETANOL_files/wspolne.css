@@ -1,0 +1,18 @@
+
+
+.wlp-bighorn-titlebar{
+display:none;
+}
+/* usuwa dolny pasek przewijania w Firefoxie*/
+.wlp-bighorn-layout-flow {
+    overflow: visible !important;
+}
+/* usuwamy szary_pasek umieszczony w body.css */
+body {
+    background-image: none !important;
+}
+.logout-form table td {
+	vertical-align: middle !important;
+	padding: 0px !important;
+}
+

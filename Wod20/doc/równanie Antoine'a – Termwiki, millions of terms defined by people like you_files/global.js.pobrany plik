@@ -1,0 +1,49 @@
+$(function(){
+	var s="   <!-- AddThis Button BEGIN -->  <div class=\"addthis_toolbox addthis_default_style\">  <a class=\"addthis_counter addthis_pill_style\"></a>  </div>  <EEE type=\"text/javascript\" src=\"http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f0fff6856494f1f\"></EEE>  <!-- AddThis Button END -->   ";
+	$("#fenxiang").html(s.replace(/EEE/g,"script"));
+	
+	$('#searchA').click(function(){
+		$('#searchMyGlossary').submit();
+	});
+	
+	$("#signin").click(function(){
+		  $("#denglu").toggle(500);
+	});
+	
+	$("#header_down").click(function(){
+		  $("#userInfo").toggle(0);
+	});
+	
+	$('.btn_no_login').click(function(){
+		var id=$(this).attr('id');
+		$(this).addClass('floatbox');
+		$(this).attr('href','/mini_login.jsp?title=UploadWindow');
+		$(this).attr('rel','iframe');
+		$(this).attr('data-fb-options','width:600 height:300 ');
+		fb.start( '#'+id );
+		return false;
+	})
+});
+$('*[click]').each(function() {
+	$(this).click(function(){
+		var c=$(this).attr('click');
+		eval(c+'()');
+	});
+})
+
+function body_add_html(html)
+{
+	$('body').append(html);
+}
+
+
+
+
+
+
+//for mobile
+
+
+$("#add_term_or_blossary").click(function(){
+	  $("#add_term_or_blossary_div").toggle(0);
+});

@@ -1,0 +1,1 @@
+function wlp_bighorn_float_handler(d){var c=true;if(window.wlp_bighorn_float){c=wlp_bighorn_float(d)}else{d.target="_blank"}return c}function wlp_bighorn_delete_handler(d){var c=true;if(window.wlp_bighorn_delete){c=wlp_bighorn_delete(d)}else{c=wlp_deleteButtonDialog(d)}return c};

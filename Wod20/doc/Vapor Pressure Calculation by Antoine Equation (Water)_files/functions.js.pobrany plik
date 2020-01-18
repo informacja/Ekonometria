@@ -1,0 +1,4 @@
+$(document).ready(function(){ 
+  //$('.round').corner(); <- we use css 
+  
+});

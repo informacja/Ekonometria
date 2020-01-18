@@ -1,0 +1,37 @@
+﻿<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src='https://www.googletagmanager.com/gtag/js?id=UA-47853726-1'; 
+    s.parentNode.insertBefore(g,s);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47853726-1');
+
+
+
+<!--
+var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-47853726-1"]);_gaq.push(["_trackPageview"]);(function(){var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})();
+-->
+
+
+<!-- Matomo -->
+
+  var _paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+  _paq.push(["setCookieDomain", "*.www.ciop.pl"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://edu.ciop.pl/piwik/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', 'www.ciop.pl']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+<!-- End Matomo Code -->

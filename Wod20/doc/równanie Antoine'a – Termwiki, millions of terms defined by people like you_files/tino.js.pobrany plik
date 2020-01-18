@@ -1,0 +1,684 @@
+var Tino = Tino || {
+			'settings' : {},
+			'behaviors' : {},
+			'themes' : {},
+			'locale' : {}
+		};
+function loadJS(url, callback, charset) {
+	var script = document.createElement('script');
+	script.onload = script.onreadystatechange = function() {
+		if (script && script.readyState
+				&& /^(?!(?:loaded|complete)$)/.test(script.readyState))
+			return;
+		script.onload = script.onreadystatechange = null;
+		script.src = '';
+		script.parentNode.removeChild(script);
+		script = null;
+		if (callback)
+			callback();
+	};
+	script.charset = charset || document.charset || document.characterSet;
+	script.src = url;
+	try {
+		document.getElementsByTagName("head")[0].appendChild(script);
+	} catch (e) {
+	}
+}
+Tino.jsEnabled = document.getElementsByTagName && document.createElement
+		&& document.createTextNode && document.documentElement
+		&& document.getElementById;
+
+Tino.attachBehaviors = function(context) {
+	context = context || document;
+	if (Tino.jsEnabled) {
+		// Execute all of them.
+		jQuery.each(Tino.behaviors, function() {
+			this(context);
+		});
+	}
+};
+Tino.checkPlain = function(str) {
+	str = String(str);
+	var replace = {
+		'&' : '&amp;',
+		'"' : '&quot;',
+		'<' : '&lt;',
+		'>' : '&gt;'
+	};
+	for ( var character in replace) {
+		var regex = new RegExp(character, 'g');
+		str = str.replace(regex, replace[character]);
+	}
+	return str;
+};
+(function($) {
+	var cache = {}, uuid = 0;
+	$.fn.once = function(id, fn) {
+		if (typeof id != 'string') {
+			// Generate a numeric ID if the id passed can't be used as a CSS
+			// class.
+			if (!(id in cache)) {
+				cache[id] = ++uuid;
+			}
+			// When the fn parameter is not passed, we interpret it from the id.
+			if (!fn) {
+				fn = id;
+			}
+			id = 'jquery-once-' + cache[id];
+		}
+		// Remove elements from the set that have already been processed.
+		var name = id + '-processed';
+		var elements = this.not('.' + name).addClass(name);
+
+		return $.isFunction(fn) ? elements.each(fn) : elements;
+	};
+})(jQuery);
+Tino.t = function(str,group,args) {
+	if(!group)
+	{
+		group='und';
+	}
+	if (Tinolocale.strings && Tinolocale.strings[group] && Tinolocale.strings[group][str]) {
+	    str = Tinolocale.strings[group][str];
+	}
+
+
+	if (args) {
+		// Transform arguments before inserting them
+		for ( var key in args) {
+			switch (key.charAt(0)) {
+				// Escaped only
+				case '@':
+					args[key] = Tino.checkPlain(args[key]);
+					break;
+				// Pass-through
+				case '!':
+					break;
+				// Escaped and placeholder
+				case '%':
+				default:
+
+					break;
+			}
+			str = str.replace(key, args[key]);
+		}
+	}
+	return str;
+};
+Tino.freezeHeight = function() {
+	Tino.unfreezeHeight();
+	var div = document.createElement('div');
+	$(div).css({
+		position : 'absolute',
+		top : '0px',
+		left : '0px',
+		width : '1px',
+		height : $('body').css('height')
+	}).attr('id', 'freeze-height');
+	$('body').append(div);
+};
+
+/**
+ * Unfreeze the body height
+ */
+Tino.unfreezeHeight = function() {
+	$('#freeze-height').remove();
+};
+Tino.parseJson = function(data) {
+	if ((data.substring(0, 1) != '{') && (data.substring(0, 1) != '[')) {
+		return {
+			status : 0,
+			data : data.length ? data : Tino.t('Unspecified error')
+		};
+	}
+	return eval('(' + data + ');');
+};
+Tino.theme = function(func) {
+	for ( var i = 1, args = []; i < arguments.length; i++) {
+		args.push(arguments[i]);
+	}
+
+	return (Tino.theme[func] || Tino.theme.prototype[func]).apply(this, args);
+};
+Tino.ahahError = function(xmlhttp, uri) {
+	if (xmlhttp.status == 200) {
+		if (jQuery.trim($(xmlhttp.responseText).text())) {
+			var message = Tino.t("An error occurred. \n@uri\n@text", {
+				'@uri' : uri,
+				'@text' : xmlhttp.responseText
+			});
+		} else {
+			var message = Tino.t(
+					"An error occurred. \n@uri\n(no information available).", {
+						'@uri' : uri,
+						'@text' : xmlhttp.responseText
+					});
+		}
+	} else {
+		var message = Tino.t("An HTTP error @status occurred. \n@uri", {
+			'@uri' : uri,
+			'@status' : xmlhttp.status
+		});
+	}
+	return message;
+}
+if (Tino.jsEnabled) {
+	// Global Killswitch on the <html> element
+	$(document.documentElement).addClass('js');
+	// 'js enabled' cookie
+	document.cookie = 'has_js=1; path=/';
+
+	// Attach all behaviors.
+	$(document).ready(function() {
+		Tino.attachBehaviors(this);
+	});
+}
+function $G() {
+	var Url = window.location.href;
+
+	var u, g, StrBack = '';
+	if (arguments[arguments.length - 1] == "#")
+		u = Url.split("#");
+	else
+		u = Url.split("?");
+	if (u.length == 1)
+		g = '';
+	else
+		g = u[1];
+	if (g != '') {
+		gg = g.split("&");
+		var MaxI = gg.length;
+		str = arguments[0] + "=";
+		for (i = 0; i < MaxI; i++) {
+			if (gg[i].indexOf(str) == 0) {
+				StrBack = gg[i].replace(str, "");
+				break;
+			}
+		}
+	}
+	return StrBack;
+}
+
+var sUserAgent = navigator.userAgent.toLowerCase();
+var screen_w = 0;
+if (sUserAgent.match(/ipad/i) == "ipad"
+		|| sUserAgent.match(/ipad/i) == "iphone") {
+	screen_w = window.screen.width;
+	var h = window.screen.height;
+	if (h > screen_w) {
+		screen_w = h;
+	}
+} else {
+	screen_w = $(window).width();
+}
+function screen_auto_w() {
+	$('*[width_with_screen]').each(function() {
+		var min_width = $(this).attr('width_with_screen');
+		var w = screen_w;
+		if (screen_w < min_width) {
+			w = min_width
+		}
+		$(this).width(w);
+	});
+}
+$(window).resize(function() {
+	screen_auto_w();
+})
+Tino.behaviors.width_with_screen = function(context) {
+	screen_auto_w();
+};
+
+Tino.behaviors.tino_chosen = function(context) {
+
+};
+var mDialogtitle="";
+var mDialogCallback;
+function showmsg_title(title)
+{
+	mDialogtitle=title;
+}
+function showmsg(msg, callback) {
+	if (callback == null) {
+		if ($("#AlertMessage").length == 0) {
+			$('body')
+					.append(
+							'<div id="AlertMessage"><p id="AlertMessageBody"  class="msgbody"></p><div id="message_bottom"></div></div>');
+		}
+		$('#AlertMessageBody').html(msg);
+		$('#AlertMessage #message_bottom').html('<button onclick="$(\'.fancybox-overlay\').hide();$(\'.fancybox-lock\').removeClass(\'fancybox-lock\');">OK</button>');
+		$(document).find('.fancybox-lock').removeClass('fancybox-lock');
+		$.fancybox.open('#AlertMessage',{closeBtn:true});
+
+
+
+	} else {
+		var ok= arguments[2] || "Save as is";
+		var cancel= arguments[3] || "Cancel";
+
+		if ($("#ConfirmMessage").length == 0) {
+			$('body')
+					.append(
+							'<div id="ConfirmMessage"> <p id="ConfirmMessageBody" class="msgbody"></p><div id="message_bottom"></div></div>');
+		}
+		$('#ConfirmMessageBody').html(msg);
+
+
+		mDialogCallback = callback;
+		$('#ConfirmMessageBody').html(msg);
+		var tmp='<button class="first">'+ok+'</button>';
+		if(cancel!='no')
+			{
+			tmp+='<button class="second">'+cancel+'</button>';
+			}
+		$('#message_bottom').html(tmp);
+		$('#message_bottom button').click(function(){
+			$.fancybox.close('#ConfirmMessage');
+			if($(this).hasClass('first'))
+			{
+				callback(true);
+			}else{
+				callback(false);
+			}
+		});
+		$.fancybox.open('#ConfirmMessage',{closeBtn:true});
+
+	}
+
+};
+
+function showmsg1(msg, callback) {
+
+	if (callback == null) {
+		if ($("#AlertMessage").length == 0) {
+			$('body')
+					.append(
+							'<div id="AlertMessage"><p id="AlertMessageBody"  class="msgbody"></p></div>');
+		}
+
+		$('#AlertMessage').dialog({
+			title: mDialogtitle,
+			autoOpen : true,
+			width : 500,
+			modal : true,
+			resizable : false,
+			open: function (event, ui) {
+				$('.ui-dialog').css('z-index',11000);
+				$('.ui-widget-overlay').css('z-index',11001);
+			},
+			buttons : {
+				"OK" : function() {
+					$(this).dialog("close");
+				}
+
+			}
+
+		});
+
+		$('#AlertMessageBody').html(msg);
+		$('#AlertMessage').dialog('open');
+
+	} else {
+		var ok= arguments[2] || "Save as is";
+		var cancel= arguments[3] || "Cancel";
+
+		if ($("#ConfirmMessage").length == 0) {
+			$('body')
+					.append(
+							'<div id="ConfirmMessage"> <p id="ConfirmMessageBody" class="msgbody"></p></div>');
+		}
+		$('#ConfirmMessage').dialog({
+			title: mDialogtitle,
+			autoOpen : true,
+			width : 500,
+			modal : true,
+			buttons: [
+
+
+				{
+					text: ok,
+					click: function() {
+						$(this).dialog('close');
+						mDialogCallback(true);
+					}
+				},
+				{
+					text: cancel,
+					click: function() {
+						$(this).dialog('close');
+						mDialogCallback(false);
+					}
+				}
+			]
+
+
+		});
+		mDialogCallback = callback;
+		$('#ConfirmMessageBody').html(msg);
+		$('#ConfirmMessage').dialog('open');
+
+	}
+
+};
+function fix_top(){
+	$('*[fix_top]').each(function(){
+		var fix_top = $(this).attr('fix_top');
+		var startPos = $(this).offset().top;
+		var fix_id=startPos;
+		if(fix_top>0)
+		{
+			fix_id=fix_top;
+		}
+		var elm=this;
+
+		$.event.add(window, "scroll", function() {
+			var p = $(window).scrollTop();
+			$(elm).css('position',((p) > startPos) ? 'fixed' : 'static');
+			$(elm).css('top',((p) > startPos) ? fix_id+'px' : '');
+		});
+	})
+}
+
+function close_dialog(){
+	$('#fbClose').click(function(){
+		parent.fb.end();parent.location.reload();
+	});
+}
+
+function show_msg_new(str)
+{
+    new $.Zebra_Dialog(str, {
+        type: false,
+        title: '',
+        buttons: false,
+        modal: true,
+        custom_class: 'myze',
+        buttons: ['OK'],
+
+
+    });
+}
+if(typeof(Tino)!='undefined')
+{
+	Tino.behaviors.fix_top=function(){fix_top(); }
+	Tino.behaviors.close_dialog=function(){close_dialog(); }
+}
+function refrsh_this_page(){location.reload();}
+function tino_goto(url){location.href=url;}
+function tino_goto_https(){
+	var targetProtocol = "https:";
+	if (window.location.protocol != targetProtocol)
+	 window.location.href = targetProtocol +
+	  window.location.href.substring(window.location.protocol.length);
+}
+
+function fancybox_close(){
+    jQuery.fancybox.close();
+    window.location.reload();
+}
+
+var Zebra_Dialog_object;
+Tino.behaviors.tfancybox = function() {
+    $('*[tfancybox]').once('tfancybox',function () {
+    	$(this).click(function(){
+            var href = $(this).attr('tfancybox');
+            var width=$(this).attr('width');
+            width=parseInt(width);
+            if(width<1)
+            {
+                width=600;
+            }
+
+            Zebra_Dialog_object=Zebra_Dialog_object=new $.Zebra_Dialog({
+                custom_class: 'myze',
+                source: {ajax: href},
+                type:false,
+                width: width,
+                buttons:false
+            });
+
+            return false;
+
+         });
+	});
+
+};
+
+function close_Zebra(){
+    Zebra_Dialog_object.close();
+}
+
+Tino.behaviors.new_iframe = function() {
+	$('*[new_iframe]').once('new_iframe',function(){
+		var url=$(this).attr('new_iframe');
+		var width=$(this).attr('width');
+		var height=$(this).attr('height');
+
+		if(typeof(width)=='undefined')
+		{
+			width=500;
+		}
+
+		if(typeof(height)=='undefined')
+		{
+			height=500;
+		}
+
+		$(this).click(function(){
+            Zebra_Dialog_object=new $.Zebra_Dialog({
+                source: {iframe: {
+                        src: url,
+                        height: height
+                    }},
+                buttons: false,
+                type:false,
+                width: width,
+                title: ''
+            });
+            return false;
+		});
+	});
+};
+
+Tino.behaviors.tfancybox1 = function() {
+    $('*[tfancybox111]').click(function() {
+            var href=$(this).attr('tfancybox');
+            $.ajax({
+                type: "GET",
+                url: href,
+                dataType: 'html',
+                beforeSend: function () {
+                    if ($("#tfancyboxMessage").length == 0) {
+                        $('body')
+                            .append(
+                                '<div id="tfancyboxMessage"><p id="tfancyboxMessageBody"  class="tfancyboxbody"></p><div id="tfancybox_bottom"></div></div>');
+                    }
+                    $('#tfancyboxMessageBody').html('Loading...');
+                    $.fancybox.open('#tfancyboxMessage',{closeBtn:true,autoHeight:true,autoWidth:true,autoResize:true,autoCenter:true});
+
+                },
+                success : function(data) {
+                    $('#tfancyboxMessageBody').html(data);
+                },
+                complete:function(){
+
+                }
+            });
+            return false;
+
+
+    });
+
+};
+
+Tino.behaviors.tino_confirm = function (context) {
+    $('*[confirm]').click(function () {
+        var t = $(this);
+        showmsg($(this).attr('confirm'), function (yes) {
+
+            if (yes) {
+                var delete_id = t.attr('delete_id');
+
+                if (typeof (delete_id) != 'undefined') {
+                    $.ajax({
+                        url: t.attr('yes_url'),
+                        beforeSend: function (e) {
+
+                        },
+                        success: function (result) {
+
+                            $(delete_id).animate({
+                                height: '0px',
+                                opacity: '0.4'
+                            }, "slow");
+                            $(delete_id).hide();
+                        }
+                    });
+                } else {
+                    window.location.href = t.attr('yes_url');
+                }
+            }
+        },'Yes');
+        return false;
+    });
+
+};
+//Generic confirm dialogue with arguments..
+// Args will be array where user can pass element reference
+// e.g. 
+//     Function call -----------------------
+//     args['ok_title'] = 'Yes';
+//     args['cancel_title'] = 'Cancel';
+//     args['elem'] = $(this);	
+//     showConfirmMsgWithArgs('Your message',callback,args);
+//
+//     Callback function ------------- 
+//     function deleteAction(confirm, args){
+//	
+//     }
+function showConfirmMsgWithArgs(msg, callback, args) {
+	if (callback == null && args == null) {
+		if ($("#AlertMessage").length == 0) {
+			$('body').append('<div id="AlertMessage"><p id="AlertMessageBody"  class="msgbody"></p><div id="message_bottom"></div></div>');
+		}
+		$('#AlertMessageBody').html(msg);
+		$('#message_bottom').html('<button id="simple_alert_message">'+Tino.t("OK",'steps')+'</button>');
+		$.fancybox.open('#AlertMessage',{closeBtn:true});
+	} else {
+		var ok = args['ok_title'] || Tino.t("Save as is",'steps');
+		var cancel = args['cancel_title'] || Tino.t("Cancel",'steps');
+                var element = args['elem'] || '';
+
+		if ($("#ConfirmMessage").length == 0) {
+			$('body').append('<div id="ConfirmMessage"> <p id="ConfirmMessageBody" class="msgbody"></p><div id="message_bottom"></div></div>');
+		}
+		$('#ConfirmMessageBody').html(msg);
+
+		$('#ConfirmMessageBody').html(msg);
+		var tmp='<button class="first">'+ok+'</button>';
+		if(cancel != 'no')
+                {
+                    tmp+='<button class="second">'+cancel+'</button>';
+                }
+		$('#message_bottom').html(tmp);
+		$('#message_bottom button').click(function(){
+                    $.fancybox.close('#ConfirmMessage');
+                    if($(this).hasClass('first'))
+                    {
+                        if(args['elem']) {
+                            callback(true,args);
+                        }
+                        else {
+                            callback(true,null)
+                        }
+                    }else{
+                        if(args['elem']) {
+                            callback(false,args);
+                        }
+                        else {
+                            callback(false,null)
+                        }
+                    }
+		});
+		$.fancybox.open('#ConfirmMessage',{closeBtn:true});
+	}
+};
+
+
+
+Tino.behaviors.selectpicker_add = function (context) {
+	if($('.selectpicker_add').length<1)
+	{
+		return;
+	}
+    var content = "<input type='text' class='bss-input' onKeyDown='event.stopPropagation();' onKeyPress='addSelectInpKeyPress(this,event)' onClick='event.stopPropagation()' placeholder='Please name your TM'> <span class='glyphicon glyphicon-plus addnewicon' onClick='addSelectItem(this,event,1);'></span>";
+
+    var divider = $('<option/>')
+        .addClass('divider')
+        .data('divider', true);
+
+
+    var addoption = $('<option/>', {class: 'addItem'})
+        .data('content', content)
+
+    console.log('selectpicker_add');
+    $('.selectpicker_add')
+        .append(divider)
+        .append(addoption)
+        .selectpicker();
+
+};
+
+function addSelectItem(t,ev)
+{
+    ev.stopPropagation();
+
+    console.log('1111');
+
+    var bs = $(t).closest('.bootstrap-select')
+    var txt=bs.find('.bss-input').val().replace(/[|]/g,"");
+    var txt=$(t).prev().val().replace(/[|]/g,"");
+    if ($.trim(txt)=='') return;
+
+    // Changed from previous version to cater to new
+    // layout used by bootstrap-select.
+    var p=bs.parent().find('select');
+    var o=$('option', p).eq(-2);
+    o.before( $("<option>", { "selected": true, "text": txt}) );
+    console.log('3333'+p.html());
+
+    p.selectpicker('refresh');
+}
+
+function addSelectInpKeyPress(t,ev)
+{
+    ev.stopPropagation();
+
+    // do not allow pipe character
+    if (ev.which==124) ev.preventDefault();
+
+    // enter character adds the option
+    if (ev.which==13)
+    {
+        ev.preventDefault();
+        addSelectItem($(t).next(),ev);
+    }
+}
+
+
+function is_indian_dev_team_js(){
+	var myElement = document.getElementById("iidt");
+	if(myElement == null){
+    	return false;
+	}else{
+		return true;
+	}
+}
+
+function is_beijing_dev_team_js(){
+	var myElement = document.getElementById("ibdt");
+	if(myElement == null){
+    	return false;
+	}else{
+		return true;
+	}
+}

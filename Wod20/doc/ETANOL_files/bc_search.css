@@ -1,0 +1,65 @@
+/*  styl dla formularza wyszukiwania  */
+
+.buttonSearch {
+  top:-2px;
+
+
+}
+.inputSearch {
+
+    
+  
+ }
+
+form  {
+  height:42px;
+  text-align: center;
+
+}
+
+
+.wlp-bighorn-window-content p {
+padding: 0px 0px;
+}
+
+
+/* style dla ChemPyl - tabela wynikow pomiarow  */
+
+table.dataTable {
+  cellspacing: 0;
+  width: 98% !important;
+  padding: 5px !important;
+}
+table.dataTable td {
+  padding: 5px !important;
+}
+
+.dataTables_wrapper {
+	width: 99%;
+	margin: 5px;
+	background: #EDF3F5;	
+}
+
+td.details-control {
+    background: url('../images/datatables/details_open.png') no-repeat center center;
+    cursor: pointer;
+    padding: 5px !important;
+}
+
+tr.details td.details-control {
+    background: url('../images/datatables/details_close.png') no-repeat center center;
+    padding: 5px !important;
+}
+/* Preloader dla tabeli danych szczeg w wyszukiwaniu*/
+
+.progress td.details-control{
+	
+	    background: url('../images/greenPreloader_17x17.gif') no-repeat center center;
+}
+
+.wyszTabLabel {
+	font-size: 18px ; 
+	font-weight: bold;	
+	margin-left: 30px;
+}
+

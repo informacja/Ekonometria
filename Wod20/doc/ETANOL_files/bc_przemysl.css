@@ -1,0 +1,275 @@
+form {
+  background-color : #F0EDE0 ;
+}
+.wlp-bighorn-titlebar, .wlp-bighorn-titlebar-title-panel {
+  background-color : #1168C9 ;
+  font-weight: bold ;	
+  color: white ;
+  
+}
+.wlp_title_repl_C_t_1316014 {
+	color:white ;
+}
+/* ---klasa dla calego portletu---- */
+.BC_presClass  {}
+/************/
+.tab_main1 {
+	width: 100% ;		
+}
+.tab_main1 td{	
+	vertical-align: top;
+}
+.tab_powrot td tr{
+	margin-right:0px;
+	vertical-align: top ;
+	width:100px;
+	text-align:right;
+}
+.tab_powrot_rows{
+	vertical-align: middle ;
+}
+.tab_powrot_col{
+	vertical-align: middle  ;
+}
+.img_powrot {
+	border:0px;
+}
+.linkPowrot_img{}
+.linkPowrot_txt{}
+
+.panel_etykInfo {
+	margin-left: auto ;
+	margin-right: auto ;
+	padding: 15px 15px 15px 15px ;	
+}
+.etykInfo {
+}
+.tab_wyboru {		
+	margin-left: 0 ;
+	margin-right: auto ;
+	text-align: left ;
+	vertical-align: middle  ;
+	width: 550px ;
+	padding: 2px ;
+	background: #F0EDE0 ;
+}
+.td1_tab1 {	 
+	background: #F0EDE0 ; 
+
+	width: 40% ; 
+	vertical-align: middle  ;
+}
+.td2_tab1 {
+	width: 60% ; 
+	background: #F0EDE0 ; 	
+
+	vertical-align: middle  ;
+	font-size: 12px ; 
+}
+
+.tab_wyboru_szc {		
+	margin-left: 0 ;
+	margin-right: auto ;
+	text-align: left ;
+	vertical-align: middle  ;
+	width: 550px ;
+	padding: 2px ;
+	background: #F0EDE0 ;
+}
+.td1_tab1_szc {	 
+	background: #F0EDE0 ; 
+	width: 40px ;
+	 
+	vertical-align: middle  ;
+}
+.td2_tab1_szc {
+	width: 100px ;
+	background: #F0EDE0 ; 	
+
+	vertical-align: middle  ;
+	font-size: 12px ; 
+}
+
+.td3_tab1_szc {
+	font-weight: bold ;	
+}	
+
+.wprzem {
+	font-weight: bold ;	
+	color: #1E71D1 ;
+	vertical-align: middle ;
+}
+.wzak {
+	font-weight: bold ;	
+	color: #19A343 ;
+}
+.wstan {
+	font-weight: bold ;	
+	color: #F5991E ;
+}
+.wprzykl {
+	font-weight: bold ;	
+	color: #E12D12 ;
+}
+
+/*  dla wynikow pomiarow  */
+.szczeg_column {
+	color: white ;
+	font-weight: bold ;
+	text-align:left ;
+	padding:10px ;
+}
+.szczeg_odd  td:first-child {
+	background-color: #7FB23C ; 
+	vertical-align: middle ;
+}
+.szczeg_even td:first-child{
+	background-color: #93C059 ; 
+	vertical-align: middle ;
+}
+.tab_daneSzczeg td:first-child {
+  width: 300px !important;	
+}
+.tab_daneSzczeg, .tab_daneSzczeg td{	
+	vertical-align: middle ;
+	padding: 5px 5px 5px 15px ;	
+	margin-left: auto ;
+	margin-right: auto ;
+	border: 2px solid white ;
+}
+.tab_daneSzczeg  tr:nth-child(odd)  {
+	 background-color: #E5E4E4 ;
+	 vertical-align: middle ;
+}
+.tab_daneSzczeg  tr:nth-child(even) { 
+	
+	vertical-align: middle ;
+}
+.tab_daneSzczeg table {
+    border-collapse: collapse ;
+	border: 2px solid transparent ;
+}
+.tab_daneSzczeg table td {
+  border-top: 1px solid black  ;
+  border-bottom: 1px solid black  ;
+  border: 1px solid black  ;
+}
+
+.tab_daneSzczeg table th {
+	border-top: 2px solid transparent ;
+	
+}
+.tab_daneSzczeg table tr:first-child th, .tab_daneSzczeg table tr:last-child td {
+    /*border-top: 2px solid transparent ;	*/
+}
+.tab_daneSzczeg table tr td:first-child, .tab_daneSzczeg table tr th:first-child {
+  /*  border-left: 2px solid transparent ;	*/
+}
+.tab_daneSzczeg table tr td:last-child, .tab_daneSzczeg table tr th:last-child {
+    border-right: 0 ;
+	/*border-bottom: 2px solid transparent ;
+	border-top: 2px solid transparent ;*/
+}
+.tab_daneSzczeg table tr:nth-child(even) td:first-child {
+	background-color: #E5E4E4 ;
+	vertical-align: middle ;
+	/*border-bottom: 2px solid transparent ;	*/
+}
+.tab_daneSzczeg table tr:nth-child(odd) td:first-child {
+	background-color: #E5E4E4 ;
+	vertical-align: middle ;		
+}
+.tab_daneSzczeg_wynBold td  p {
+	font-weight: bold ;	
+	background-color: #E5E4E4  ;	
+	text-align: center  ;
+}
+.rozLista {
+	word-wrap:break-word ;
+	width: 100% ;	
+}
+.adminLinkDodaj {
+	padding-left: 5px ; 
+	font-size: 10px ; 
+	font-style: italic
+}
+
+/*------------- styl dla listingow --------------*/
+.listing_usunPoz {font-size: 9px; font-style: italic; color:red}
+.tab_powrot_list {width : 100%; text-align: center;}
+.tab_powrot_rows_list {}
+.tab_powrot_col_list {}
+
+.tytul_nag {
+	font-weight: bold;
+	font-size: 18px ;  font-weight: bold ; 
+}
+.tab_przem  {
+	border: 1px solid transparent ;
+	width: 100%;
+	padding: 0px;
+	
+}
+
+.tab_przem_row {}
+.tab_przem_col {background-color: #E0EBFC; font-size: 18px ;  font-weight: bold ; text-align: center  ;}
+
+
+.tab_zak {
+	
+	width: 100%;
+	background-color:  #DAEFD7;
+	
+}
+.tab_zak_row {border-bottom: 3px solid white ;}
+.tab_zak_col {
+	width: 300px;
+	font-weight: bold;
+	
+	
+}
+
+.tab_stan {
+	border: 10px solid transparent ;	
+	width: 100%;
+}
+.tab_stan_row {border-bottom: 2px solid white ; background-color: #FBEECC}
+.tab_stan_col {width: 500px; font-weight: bold; }
+.tab_stan tr:hover { background: #9AB6B2; }
+
+
+.tab_przyk {
+	border: 2px solid transparent ;	
+	padding: 0px;
+	margin: 0px;
+	width: 100px;
+	background-color: #FBE3E3 ;
+}
+.tab_przyk_row {border-top: 0px solid black; }
+.tab_przyk_col {font-weight: normal;}
+.tab_przyk_col a {font-weight: normal; color: black;}
+
+
+
+
+
+/*------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

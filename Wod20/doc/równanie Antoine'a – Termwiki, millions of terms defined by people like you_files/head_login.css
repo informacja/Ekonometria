@@ -1,0 +1,138 @@
+.msg {
+    padding: 10px;
+    text-align: center;
+}
+.alert {
+    border-radius: 4px;
+    padding: 8px 35px 8px 14px;
+    text-align: left;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+}
+
+.subpage_topnav .denglu {
+ height: 119px;
+    margin-right: 380px;
+    margin-top: 0;
+    position: absolute;
+    right: 0;
+    width: 300px;
+}
+.denglu .sign_jian {
+   cursor: pointer;
+    background-repeat: no-repeat;
+    float: right;
+    height: 6px;
+    margin-right: 40px;
+    width: 10px;
+}
+.denglu .sign_kuang {
+    background-color: #fff;
+    border: 1px solid #c6cad0;
+    height: auto;
+	position: absolute;
+    width: 298px;
+    z-index: 6;
+}
+.sign_kuang .username {
+    font-size: 12px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 260px;
+}
+.sign_kuang .password {
+    font-size: 12px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 260px;
+}
+.sign_kuang .danniu {
+    height: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 260px;
+}
+.danniu .dannie_left {
+    float: left;
+    font-family: "Gotham Narrow SSm 4r",Arial;
+    height: 36px;
+    width: 75px;
+}
+.dannie_left a {
+	font-size: 14px;
+	background-color: #6e7a8b;
+	display: block;
+	height: 28px;
+	width: 75px;
+	color: #FFF;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 8px;
+	text-decoration: none;
+}
+.dannie_left input {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	display: inline;
+	vertical-align: baseline;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0 1px 1px rgba(0,0,0,.1);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	font-family: "Gotham Narrow SSm 4r",Arial;
+	font-size: 14px;
+	line-height: 100%;
+	font-weight: bold;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	padding-right: 20px;
+	padding-left: 20px;
+	background: #439fe0;
+	color: #FFF;
+	border:0px;
+}
+.dannie_left input:hover {
+    background: #3d97d6;
+	box-shadow: 0 -2px 0px #3277a8 inset;
+	-moz-box-shadow:0 -2px 0px #3277a8 inset;              
+    -webkit-box-shadow:0 -2px 0px #3277a8 inset;           
+}
+.dannie_left input:active {
+    background: #439fe0;
+	box-shadow: 0 2px 0px #3277a8 inset;
+	-moz-box-shadow:0 2px 0px #3277a8 inset;              
+    -webkit-box-shadow:0 2px 0px #3277a8 inset;  
+}
+.sign_input {
+    background-image: url("../images/userpass_bg.gif");
+    background-repeat: repeat-x;
+    border: 1px solid #c7cccf;
+    color: #8f8f8f;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 5px;
+    width: 258px;
+}
+.danniu .dannie_right {
+    float: left;
+    font-size: 14px;
+    height: 28px;
+    margin-left: 30px;
+    padding-top: 8px;
+    width: 150px;
+}

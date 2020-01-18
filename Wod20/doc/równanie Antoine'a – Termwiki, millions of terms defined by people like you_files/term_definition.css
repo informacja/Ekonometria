@@ -1,0 +1,19 @@
+.wenzhang {
+	font-size: 16px;
+    line-height: 24px;
+	width:620px;
+}
+.wenzhang ul, .wenzhang ol {
+    padding-left: 20px;
+	margin-bottom:10px;
+}
+.wenzhang ol li {
+    list-style-type: decimal;
+}
+.wenzhang ul li {
+    list-style-type: disc;
+}
+.wenzhang p{margin-bottom:10px;}
+.wenzhang ul p {
+    margin-bottom:0px;
+}

@@ -1,0 +1,123 @@
+	CIOP_pageList_treeview = function() {
+		this.initializeTree = function(configuration) {
+			var componentSelector = configuration.selector;
+			var sideControlSelector = configuration.controlSelector;
+			
+			$(selector).treeview({
+				collapsed: true,
+				animated: "medium",
+				control: sideControlSelector,
+				persist: "location"
+			});			
+		}
+	}
+
+
+//if (typeof CIOP_tinyMCE === undefined) {
+	CIOP_tinyMCE = function() {
+	    this.initializeTinyMCE = function(configuration) {
+
+		var componentSelector = configuration.selector;
+		var CONTEXT_PATH = configuration.contextPath;
+
+		$(componentSelector).tinymce({
+			language : 'pl',
+		    // Location of TinyMCE script
+		    script_url : CONTEXT_PATH + '/static/pz/scripts/tiny_mce.js',
+
+		    relative_urls : false,
+		    document_base_url : CONTEXT_PATH,
+
+		    width: '100%',
+		    height: '500',		    
+		    extended_valid_elements: 'span[*]',
+
+
+		    // General options
+		    // Do not switch, some of the custom upload functions reside in theme folder
+		    theme : "advanced",
+		    plugins : "interlineselect,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+		    //force_p_newlines : false,
+		    //force_br_newlines : true,
+		    //forced_root_block : '',
+		    
+		    // Theme options
+							    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,forecolor,separator,formatselect,fontselect,fontsizeselect,styleselect,justifyleft,justifycenter,justifyright,justifyfull",
+		    theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,anchor,image,|,bullist,numlist,undo,redo,link,unlink,myUpload,interlineselect",
+		    theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,fullscreen,code",
+		    theme_advanced_buttons4 : "",	            
+
+//		    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+//		    theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+//		    theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+//		    theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,pagebreak",
+		    		    
+		    /*work in tinymce < 3.4
+		    mode : "textareas",
+		    valid_elements : '*[*]',
+		    valid_children: "*[*]",
+		    cleanup_on_startup : false,
+		    trim_span_elements : false,
+		    verify_html : false,
+		    cleanup : false,
+		    convert_urls : false,
+		    nowrap : true,
+		    remove_linebreaks : false,
+		    convert_fonts_to_spans : false,
+		    fix_content_duplication : false,
+		    */
+		    convert_urls : false,
+		    theme_advanced_toolbar_location : "top",
+		    theme_advanced_toolbar_align : "left",
+		    theme_advanced_statusbar_location : "bottom",
+		    theme_advanced_resizing : true,
+
+		    theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
+		    font_size_style_values : "10px,12px,13px,14px,16px,18px,20px",
+
+		    style_formats: [		     								
+		    
+		                    { title: 'akapit', selector: 'p', styles: { 'padding': '2px 10px'} },
+		                    { title: 'lista', selector: 'ul', styles: { 'padding': '2px 25px'} }//,
+		                    //{ title: 'style2', inline: 'span', styles: { 'color': '#6F7575','font-size':'14px','background-color':'#ABF5EC'} },
+		                    //{ title: 'style3', inline: 'span', styles: { 'color': '#000000','font-size':'16px','background-color':'#8357F2', 'font-weight':'bold'} }
+		                 ], 
+            formats: {
+            	interline_115 : {selector : 'p,td,span', classes : 'interline_115'},
+            	interline_150 : {selector : 'p,td,span', classes : 'interline_150'},
+            	interline_200 : {selector : 'p,td,span', classes : 'interline_200'},
+            	interline_250 : {selector : 'p,td,span', classes : 'interline_250'},
+            	interline_300 : {selector : 'p,td,span', classes : 'interline_300'}
+            }, 
+
+		    // Drop lists for link/image/media/template dialogs
+		    template_external_list_url : "lists/template_list.js",
+		    external_link_list_url : "lists/link_list.js",
+		    //external_image_list_url : "lists/image_list.js",
+		    media_external_list_url : "lists/media_list.js",
+
+		    setup : function(ed, url) {
+			// Add a custom button
+			ed.addButton('myUpload', {
+			    title : 'Upload/Link File',
+			    //FIXME image file
+			    image : CONTEXT_PATH + '/static/pz/scripts/themes/advanced/img/paperclip.png',
+			    onclick : function() {
+				ed.windowManager.open({
+				    file : CONTEXT_PATH + '/faces/portlets/common/binaryUpload.jspx',
+				    width : 700,
+				    height : 480,
+				    inline : 1
+				});
+			    }
+			});
+		    }
+
+
+		});
+	    }
+	}
+//}
+	
+

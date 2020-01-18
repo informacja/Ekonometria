@@ -1,0 +1,27 @@
+$(document).ready(function() {
+	$("*[login]").click(function(event){
+		show_login_panel(event,$(this).attr('login'));
+	});
+	
+	$('*[must_login]').click(function(event){
+		if(tw_user_id<1)
+		{
+			show_login_panel(event,$(this).attr('must_login'));
+			return false;
+		}
+		return true;
+	});
+	$('#login_box_close').click(function(){
+		$('#denglu').hide(500);
+	})
+
+});
+function show_login_panel(event,action)
+{
+	$('#login_form').attr('action',action);
+	$('#denglu').css('top',event.pageY+10);
+	if($('#denglu').css('display')=='none')
+	{
+		$("#denglu").show(500);
+	}
+}

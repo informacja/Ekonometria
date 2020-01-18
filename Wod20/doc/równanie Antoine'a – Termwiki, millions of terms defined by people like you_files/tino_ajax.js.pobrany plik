@@ -1,0 +1,512 @@
+$(document).ready(function() {
+	// tino_ajax_all();
+});
+if (typeof (Tino) != 'undefined') {
+	Tino.behaviors.tino_ajax_all = function() {
+		tino_ajax_all();
+	}
+}
+
+var tino_ajax_do = false;
+var tino_loading_1 = false;
+function tino_ajax_all() {
+	$('*[ajax_callback_url]').each(function() {
+		var ajax_action = $(this).attr('ajax_action');
+		var ajax_args = $(this).attr('ajax_args');
+		var ajax_type = $(this).attr('ajax_type');
+		var ajax_msg = $(this).attr('ajax_msg');
+		var body_loading = $(this).attr('body_loading');
+		if ('' == ajax_action || typeof (ajax_action) == 'undefined') {
+			ajax_action = 'click';
+		}
+		if (typeof (ajax_args) == 'undefined') {
+			$(this).attr('ajax_args', '');
+		}
+		if (typeof (ajax_msg) == 'undefined') {
+			$(this).attr('ajax_msg', '.msg');
+		}
+		if (typeof (body_loading) == 'undefined') {
+			$(this).attr('body_loading', 'no');
+		}
+
+		if ('' == ajax_type || typeof (ajax_type) == 'undefined') {
+			ajax_type = 'form';
+		}
+
+		if ($(this).hasClass('jquery-once-callback')) {
+      console.log("returned from here");
+			return;
+		}
+		$(this).addClass("jquery-once-callback");
+
+		// $(this).unbind(ajax_action);
+		$(this).bind(ajax_action, function() {
+			tino_ajax_form($(this), ajax_type);
+			return false;
+		});
+
+	});
+}
+
+function tino_ajax_form(obj, ajax_type) {
+
+	var ajax_wrapper = obj.attr('ajax_wrapper');
+	var ajax_method = obj.attr('ajax_method');
+	var ajax_complete_func = obj.attr('ajax_complete_func');
+	var ajax_confirm = obj.attr('ajax_confirm');
+	var ajax_before=obj.attr('ajax_before_func');
+
+	if (typeof (ajax_confirm) != 'undefined' && '' != ajax_confirm) {
+		if (!eval(ajax_confirm)) {
+			return false;
+		}
+	}
+
+	if (typeof (ajax_method) == 'undefined' || '' == ajax_method) {
+		ajax_method = 'html';
+	}
+	var ajax_wrapper_obj = '';
+	if ('' == ajax_wrapper) {
+		ajax_wrapper_obj = obj;
+	} else {
+		ajax_wrapper_obj = $('#' + ajax_wrapper);
+	}
+
+	if ('form' == ajax_type) {
+		var form = $(obj).parents("form");
+
+		// @snippet placeholder
+		/*
+		 * form.find('[placeholder]').each(function() { var input = $(this); if
+		 * (input.val() == input.attr('placeholder')) { input.val(''); } });
+		 */
+		// @snippet placeholder ends
+		form.attr('enctype', 'multipart/form-data');
+		form.attr('alert_type', obj.attr('alert_type'));
+		var alert_open = obj.attr('alert_open');
+		if (typeof (alert_open) == 'undefined' || '' == alert_open) {
+			alert_open = 'yes';
+		}
+
+		form.attr('alert_open', alert_open);
+		var url = obj.attr('ajax_callback_url');
+
+		if (url == '') {
+			url = form.attr('action');
+		}
+
+		if (url == '') {
+			// url=top.window.location.href;
+			// url=location.href;
+		}
+		/*
+		 * var arg=obj.attr('ajax_args'); if(arg!="")
+		 * {arg=arg.replace(/\?/ig,""); }
+		 * 
+		 * 
+		 * if(url.indexOf('?')>-1) { url = url+'&'+arg; }else{ url =
+		 * url+'?'+arg; }
+		 */
+		url = url + obj.attr('ajax_args');
+		var my_var = obj.attr('ajax-no-close');
+		form.ajaxSubmit({
+			url : url,
+			type : "POST",
+			dataType : 'json',
+			beforeSend : function() {
+
+                if (typeof (ajax_before) != 'undefined' && '' != ajax_before) {
+                    eval(ajax_before);
+                }
+
+				if (my_var == 1 || my_var == 2) {
+					tino_loading_start(obj, form, my_var);
+				} else {
+					tino_loading_start(obj, form);
+
+
+				}
+
+
+			},
+			complete : function() {
+				tino_loading_1 = false;
+			},
+			data : {
+				selected : obj.children('option:selected').val(),
+				ajax : 1
+			},
+			error : function() {
+
+				tino_loading_stop(obj, form);
+			},
+			success : function(data) {
+				tino_loading_stop(obj, form);
+				if ('' != data.html) {
+					// ajax_wrapper_obj.fadeOut();
+					// ajax_wrapper_obj.fadeIn();
+                    ajax_wrapper_obj.show(500);
+
+					eval('ajax_wrapper_obj.' + ajax_method + '(data.html);');
+				}
+
+				if (typeof (ajax_complete_func) != 'undefined'
+						&& '' != ajax_complete_func) {
+					eval(ajax_complete_func);
+				}
+
+				if (my_var == 2) {
+					tino_show_msg_new(obj, form, data.error, 'danger', my_var);
+					tino_show_msg_new(obj, form, data.success, 'success',
+							my_var);
+				} else {
+					tino_show_msg(obj, form, data.error, 'danger');
+					tino_show_msg(obj, form, data.success, 'success');
+				}
+
+				if(typeof(data.error_msg)!='undefined' && data.error_msg)
+				{
+                    showmsg(data.error_msg);
+                    return;
+				}
+				if ('' != data.func) {
+					eval(data.func);
+
+				} else if ('' != data.url) {
+					// tino_show_msg(form,'continue...','info');
+					window.location.replace(data.url);
+				}
+
+				// tino_ajax_all();
+
+				if (typeof (Tino) != 'undefined') {
+					Tino.attachBehaviors();
+				}
+
+			}
+		});
+	} else {
+		fm = ajax_wrapper_obj;
+		url = obj.attr('ajax_callback_url');
+        url = url + obj.attr('ajax_args');
+		$.ajax({
+			type : "GET",
+			url : url,
+			dataType : 'html',
+			beforeSend : function() {
+				obj.addClass('disabled');
+				// $('html, body').animate({
+				// 	scrollTop : ajax_wrapper_obj.offset().top
+				// }, 300);
+
+				tino_loading_start(obj);
+			},
+			data : {
+				ajax : 1
+			},
+			error : function() {
+				obj.removeClass('disabled');
+				tino_loading_stop(obj);
+			},
+			success : function(data) {
+				obj.removeClass('disabled');
+				tino_loading_stop(obj);
+				eval('ajax_wrapper_obj.' + ajax_method + '(data);');
+
+				if (typeof (ajax_complete_func) != 'undefined'
+						&& '' != ajax_complete_func) {
+					eval(ajax_complete_func);
+				}
+
+				// tino_ajax_all();
+
+				if (typeof (Tino) != 'undefined') {
+					Tino.attachBehaviors();
+				}
+
+			}
+		});
+	}
+}
+
+function tino_dialog_msg() {
+
+	if ($("#tino_dialog_msg").length == 0) {
+		$('body').append('<div id="tino_dialog_msg"></div>');
+
+	}
+	return $("#tino_dialog_msg").dialog({
+		autoOpen : true, // 是否自动弹出窗口
+		modal : true, // 设置为模态对话框
+		resizable : false,
+		width : 400, // 弹出框宽度
+		height : 'auto', // 弹出框高度
+		title : "Processing…", // 弹出框标题
+		open : function(event, ui) {
+			$('.ui-dialog').css('z-index', 11000);
+			$('.ui-widget-overlay').css('z-index', 10999);
+			// $(".ui-dialog-titlebar-close").hide();
+		}
+	});
+	;
+}
+function tino_dialog_msg_special(res) {
+	if ($("#tino_dialog_msg").length == 0) {
+		$('body').append('<div id="tino_dialog_msg"></div>');
+	}
+        
+	 return $("#tino_dialog_msg").dialog({
+				autoOpen : true, // 是否自动弹出窗口
+				modal : true, // 设置为模态对话框
+				resizable : false,
+				// width : 450, // 弹出框宽度
+				// height : 500, // 弹出框高度
+				draggable : false,
+				width : 'auto',
+				position : 'center',
+				title : "Translation Glossary", // 弹出框标题
+				position : {
+						my : 'center',
+						at : 'center',
+						of : window
+				},
+				open : function(event, ui) {
+						$('.ui-dialog').css('z-index', 11000);
+						$('.ui-widget-overlay').css('z-index', 10999);
+						// $(".ui-dialog-titlebar-close").hide();
+				},
+				buttons : {
+						"OK" : function() {
+								$(this).dialog("close");
+						}                                                                  
+				}
+		});
+
+	
+	
+}
+function tino_dialog_msg_no_close() {
+	if ($("#tino_dialog_msg").length == 0) {
+		$('body').append('<div id="tino_dialog_msg"></div>');
+	}
+	return $("#tino_dialog_msg").dialog({
+		autoOpen : true, // 是否自动弹出窗口
+		modal : true, // 设置为模态对话框
+		resizable : false,
+		width : 350, // 弹出框宽度
+		height : 300, // 弹出框高度
+		title : "Processing…", // 弹出框标题
+		closeOnEscape : false,
+		open : function(event, ui) {
+			$('.ui-dialog').css('z-index', 11000);
+			$('.ui-widget-overlay').css('z-index', 10999);
+			$(".ui-dialog-titlebar-close").hide();
+		}
+	});
+	;
+}
+
+function tino_body_loading_start(){
+    $('body').addClass('custombox-lock');
+    $('body')
+        .append(
+            '<div class="custombox-overlay"><div class="custombox-loading"><div></div></div></div>');
+}
+function tino_body_loading_stop(){
+    $('body').removeClass('custombox-lock');
+    $('.custombox-overlay').remove();
+}
+
+function tino_loading_start(b, obj, myattr) {
+	if (b.attr('body_loading') == 'yes') {
+		$('body').addClass('custombox-lock');
+		$('body')
+				.append(
+						'<div class="custombox-overlay"><div class="custombox-loading"><div></div></div></div>');
+		return;
+	}
+
+	var ajax_start_func=b.attr('ajax_start_func');
+	if (typeof(ajax_start_func)!='undefined')
+	{
+        eval(ajax_start_func);
+        return;
+
+    }
+
+    if (typeof(obj)!="undefined" && obj.attr('alert_open') == 'no') {
+		return;
+	}
+
+	var img = weburl + 'public/images/ajax-loader-5.gif';
+
+	if (typeof (b.attr('loading_img')) != 'undefined') {
+		img = b.attr('loading_img');
+	}
+
+	if (typeof(obj)!="undefined" && obj.attr('alert_type') == 'message') {
+		$(b.attr('ajax_msg')).addClass('tino_loading');
+
+		var h = '<img src="' + img + '">';
+		if (typeof (b.attr('loading_text')) != 'undefined') {
+			h += b.attr('loading_text');
+		}
+
+		$(b.attr('ajax_msg')).html(h);
+	} else {
+		if (myattr == 1) {
+			tino_dialog_msg_no_close().dialog("open");
+			$("#tino_dialog_msg")
+					.html(
+							'<img src="'
+									+ img
+									+ '"><br><br><br/><span style="color:#b94a48">Warning: Your task is in progress so please wait...</span>');
+		} else {
+			
+			tino_dialog_msg().dialog("open");
+			$("#tino_dialog_msg").html('<img src="' + img + '"><br><br>');
+		}
+
+	}
+}
+function tino_loading_stop(b, obj) {
+	if (b.attr('body_loading') == 'yes') {
+		$('body').removeClass('custombox-lock');
+		$('.custombox-overlay').remove();
+		return;
+	}
+
+    var ajax_success_func=b.attr('ajax_success_func');
+    if (typeof(ajax_success_func)!='undefined')
+    {
+        eval(ajax_success_func);
+        return;
+
+    }
+
+	if (typeof(obj)!="undefined" && obj.attr('alert_open') == 'no') {
+		return;
+	}
+
+	if (typeof(obj)!="undefined" && obj.attr('alert_type') == 'message') {
+		$(b.attr('ajax_msg')).removeClass('tino_loading');
+		// $('.msg').html('');
+	} else {
+		tino_dialog_msg().dialog("close");
+	}
+}
+
+function tino_show_msg(b, obj, str, type) {
+	if (typeof (str) == 'undefined' || '' == str) {
+		return;
+	}
+	str = '<p class="alert alert-' + type + '">' + str + '</p>';
+	if (typeof(obj)!="undefined" && obj.attr('alert_type') == 'message') {
+		$(b.attr('ajax_msg')).html(str);
+
+	} else {
+		if(typeof($.Zebra_Dialog)=='function')
+		{
+			return new $.Zebra_Dialog(str, {
+                type: false,
+                title: '',
+                buttons: false,
+                modal: true,
+                custom_class: 'myze',
+                buttons: ['OK'],
+                // auto_close: 5000,
+
+            });
+		}
+		tino_dialog_msg().dialog("open");
+		$("#tino_dialog_msg").html(str);
+
+	}
+}
+function tino_show_msg_new(b, obj, str, type, myvar) {
+	if (typeof (str) == 'undefined' || '' == str) {
+		return;
+	}
+	str = '<p class="alert alert-' + type + '">' + str + '</p>';
+	if (typeof(obj)!="undefined" && obj.attr('alert_type') == 'message') {
+		$(b.attr('ajax_msg')).html(str);
+
+	} else {
+		if (myvar == 2) {
+                     var new_my_var = '';
+                     var res = '';
+                         new_my_var = b.attr('ajax_wrapper');                        
+                         res = new_my_var.split("_"); 
+                         var res_last=res[res.length-1];                                          
+			tino_dialog_msg_special(res_last).dialog("open");
+			$("#tino_dialog_msg").html(str);
+		} else {
+			tino_dialog_msg().dialog("open");
+			$("#tino_dialog_msg").html(str);
+		}
+
+	}
+}
+function test() {
+	alert('test');
+}
+function global_loading_start() {
+    if($('body').hasClass('custombox-lock')){
+
+    }else{
+        $('body').addClass('custombox-lock');
+        $('body').append('<div class="custombox-overlay"><div class="custombox-loading"><div></div></div></div>');
+	}
+
+}
+function global_loading_stop() {
+	$('body').removeClass('custombox-lock');
+	$('.custombox-overlay').remove();
+}
+
+function file_loading_start(current_file,file_num,file_size,per_get) {
+    	global_loading_stop();
+        $('body').addClass('custombox-lock');
+        if(file_num == 0){
+            file_num = 1;
+		}
+        
+        var per = (current_file)/file_num;
+        if(per>1){
+        	per = 1;
+        }
+
+        if((per_get>0) && (file_num==1)){
+            per = per_get;
+		}
+
+
+        var percentage_completed = per * 100;
+		percentage_completed = Math.ceil(percentage_completed);
+		
+        var content = '<div class="custombox-overlay"><div style="" class="upload-word-process"><h4 class="text-center pb0 mb">Analyzing Files…</h4><div class="text-center text-777 mb" >Please do not close this window.</div><div class="text-center pb-xl" style="height: 26px; padding-right: 28px!important;"><i id="icon-rotate" class="la la-spinner font26"></i></div><div class="data mt-lg" style="width:100%;"><div class="bar-wrap"><div class="per red bar-zoro" data-percentage="'+percentage_completed+'" style="width: '+percentage_completed+'%;"></div></div></div>';
+        if(file_num>1){
+        	content += '<div class="mt-lg text-777">File number: ' + current_file + '/' + file_num + '</div>';
+        }
+        
+        content +=  '<div class="mt-xs text-777" style="display: none;">File size: ' + file_size + '</div>';
+        content +='</div></div>';
+        $('body').append(content);
+
+
+}
+function file_loading_stop() {
+    $('body').removeClass('custombox-lock');
+    $('.custombox-overlay').remove();
+}
+
+function showmsg_succeed(msg){
+    var textstr = Tino.t(msg,'steps');
+    var ok = Tino.t('OK','steps');
+    showmsg(textstr,function(yes){
+        if(yes)
+        {
+            parent.jQuery.fancybox.close();
+        }
+    },ok,'no');
+}
