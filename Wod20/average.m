@@ -8,7 +8,7 @@ filename = 'sig.csv';
 [Temp] = readvars( append(folder,filename) );
 L = length(Temp);
 figure(1)
-subplot 111; plot(Temp); title(filename); 
+subplot 411; plot(Temp); title(filename); 
 title('Stacja Uzdatniana Wody (£uk.) lata 2013-2019 '); axis('tight')
 Llat = 2019-2013; Ldni = floor(L/Llat);
 xlabel(sprintf("%s %d %s",' Dni ( za³. okresowe, rok trwa):', Ldni, 'dni'));  ylabel(['Temperatura wody [ ' char(176) 'C ]']);  
@@ -38,7 +38,7 @@ for ( n = 1:Llat)
 end
 %  pause(1);
 % end
-%% sr +1
+%% sr +-1
 [m,n] = size(Temp');
 y1 = Temp';
 y2 = zeros(m,n);
@@ -46,21 +46,41 @@ for i = 2:(n-1)
     y2(i) = (y1(i-1) + y1(i) + y1(i+1))/3;
 end
 
-figure(3)
-subplot 111; plot(y2); title(filename); 
-title('Œrednia ruchoma'); axis('tight')
+figure(1)
+subplot 412; plot(y2); title(filename); 
+title('Œrednia ruchoma z 3 dni'); axis('tight')
 Llat = 2019-2013; Ldni = floor(L/Llat);
 xlabel(sprintf("%s %d %s",' Dni ( za³. okresowe, rok trwa):', Ldni, 'dni'));  ylabel(['Temperatura wody [ ' char(176) 'C ]']);  
 
-input('srednia ruchoma');
+% input('srednia ruchoma');
+%% sr +-2
+[m,n] = size(Temp');
+y1 = Temp';
+y2 = zeros(m,n);
+v = 2;
+for i = v+1:(n-v)    
+    sum = y1(i);
+    for (w = 1:v)
+       sum = sum + (y1(i-w) + y1(i+w));
+    end
+    y2(i) = sum/(v+3);
+end
+
+figure(1)
+subplot 413; plot(y2); title(filename); 
+title(sprintf('Œrednia ruchoma z %d dni',v+v+1)); axis('tight')
+Llat = 2019-2013; Ldni = floor(L/Llat);
+xlabel(sprintf("%s %d %s",' Dni ( za³. okresowe, rok trwa):', Ldni, 'dni'));  ylabel(['Temperatura wody [ ' char(176) 'C ]']);  
+
+% input('srednia ruchoma');
 
 %% furier
 
-
+subplot 414; 
 Y = fft(Temp-mean(Temp));
-plot(abs(Y/L));
+plot(abs(Y/L)); title('Widmo furierowskie'); 
 
-input('furier');
+% input('furier');
 
 % symulacja
 
@@ -74,19 +94,20 @@ input('furier');
 %  figure
 % S = Temp
 % L = len;
-Fs = 1/L;
-fpr = 1/365;        % dni w roku
-f = Fs*(0:(L/2))/L;
 
-Y = fft(Temp-mean(Temp));
-P2 = abs(Y/L);
-P1 = P2(1:L/2+1);
-P1(2:end-1) = 2*P1(2:end-1);
-
-plot(f,P1) 
-title('Single-Sided Amplitude Spectrum of S(t)')
-xlabel('f (Hz)')
-ylabel('|P1(f)|')
+% Fs = 1/L;
+% fpr = 1/365;        % dni w roku
+% f = Fs*(0:(L/2))/L;
+% 
+% Y = fft(Temp-mean(Temp));
+% P2 = abs(Y/L);
+% P1 = P2(1:L/2+1);
+% P1(2:end-1) = 2*P1(2:end-1);
+% 
+% plot(f,P1) 
+% title('Single-Sided Amplitude Spectrum of S(t)')
+% xlabel('f (Hz)')
+% ylabel('|P1(f)|')
 
 
 
