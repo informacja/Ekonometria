@@ -32,7 +32,7 @@ if length(celc) == length(date)
     disp("ok");
 else
     error("Rozne dlugosci tablic")
-    length(celc) 
+    length(celc)
     length(data)
 end
 %%
