@@ -6,8 +6,9 @@
 
 #### Poziom wody w zbiorniku na garbatce
 ![Poziom wody w zbiorniku na garbatce](docs/img/sufczyn/3.png)
+### Prezentacja danych ToDo
 
-#### Eliminacja zmiennych quasi-losowych [[1]](#1)
+### Eliminacja zmiennych quasi-losowych [[1]](#1)
 ![quasi](docs/quasi.png)
 
 > Ostatnie 365 dni ma zmienność bliską do wyniku z ostatniego dnia do setnej części po przecinku.
@@ -24,6 +25,8 @@ quasiZmiennosc3lat =
 ```
 >Wniosek: 
 > Do dobrego modelu wystarczyłyby 3 lata zbierania temperatur
+
+#### Model ToDo
 
  ## References
 <a id="1">[1]</a> 
