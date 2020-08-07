@@ -10,7 +10,7 @@ x=[xmin:dx:xmax];
 kol1='r*'; if(Ldanych>80) kol1='r.'; end
  figure(1); subplot(1,1,1); 
  plot(x, Yemp,kol1); hold on
- z=input(' ? jaka to funkcja ? !!!  <Ent> - co mogloby byc ?') ; 
+ z=input(' ? jaka to funkcja ? !!!  <Ent> - co mogloby byc ?'); 
  % wyobra¿enia
  Ldim=1000;
  dv=(xmax-xmin)/(Ldim-1);  v=[xmin:dv:xmax];
