@@ -26,7 +26,7 @@ for(k=1:lTw)
   q1=Sch1*Kch1*(Tw(k)-T1); Fv(k)=q1/Lambd; % ile trzeba pompowaæ by odebraæ ciep³o parowania
 end
 % rownanie wym. ciepla w kaloryferze 
-figure(3); plot(Tw,Fv); ylabel('kg/s');xlabel('J/s/m2/K');
+figure(3); plot(Tw,Fv); ylabel('kg/s'); xlabel('J/s/m2/K');
 
 %czy to bêdzie proces izotermiczny ??? sprê¿arka t³okowa
 % izentropowe - bez wymiany ciep³a

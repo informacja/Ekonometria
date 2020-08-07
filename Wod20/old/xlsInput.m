@@ -14,7 +14,7 @@ end
 
 %% table to matrix
 
-id_lp   = find(string(x.Properties.VariableNames) == "Lp");
+id_lp   = find(string(x.Properties.VariableNames) == 'Lp');
 id_date = find(string(x.Properties.VariableNames) == "Datapoboru");
 id_celc = find(string(x.Properties.VariableNames) == "Wynik");
 id_place= find(string(x.Properties.VariableNames) == "Miejscepoboru");

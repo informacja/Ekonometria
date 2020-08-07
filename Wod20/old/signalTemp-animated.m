@@ -16,7 +16,7 @@ xlabel(sprintf("%s %d %s",' Dni ( za³. okresowe, rok trwa):', Ldni, 'dni'));  yl
 % input('temperatury, dane surowe');
 
 %% sr. sumowana 
-% while(1)
+while(1)
 for ( n = 1:Llat)
     zLat = n;                                           % z ilu lat
     rok(Ldni) = 0;
@@ -34,10 +34,10 @@ for ( n = 1:Llat)
     plot(rok); 
     title('Srednia sumowana'); axis('tight')
     xlabel(sprintf("%s %d %s",' Dni ( za³. okresowe, rok trwa):', Ldni, 'dni'));  ylabel(['Temperatura wody [ ' char(176) 'C ]']);  
-%     pause(0.7);
+    pause(0.07);
 end
 %  pause(1);
-% end
+end
 %% sr +1
 [m,n] = size(Temp');
 y1 = Temp';
