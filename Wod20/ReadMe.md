@@ -1,12 +1,13 @@
-# Projekt Wodociągi 2020
+# Projekt [#Wodociągi 2020](https://matlab.mathworks.com/users/mwa0000016477570/Published/Wod20/mean/html/comparison2mean.html#2)
 
 #### Abstract
 
 ![mail](docs/mail.png)
 
-#### Poziom wody w zbiorniku na garbatce
+### Poziom wody w zbiorniku na garbatce
 ![Poziom wody w zbiorniku na garbatce](docs/img/sufczyn/3.png)
-### Prezentacja danych ToDo
+
+## Prezentacja danych ToDo
 
 ### Eliminacja zmiennych quasi-losowych [[1]](#1)
 ![quasi](docs/quasi.png)
@@ -26,7 +27,7 @@ quasiZmiennosc3lat =
 >Wniosek: 
 > Do dobrego modelu wystarczyłyby 3 lata zbierania temperatur
 
-#### Model ToDo
+### Model ToDo
 
  ## References
 <a id="1">[1]</a> 
