@@ -4,15 +4,13 @@
 
 ![mail](docs/mail.png)
 
-##### Poziom wody w zbiorniku na garbatce
+#### Poziom wody w zbiorniku na garbatce
 ![Poziom wody w zbiorniku na garbatce](docs/img/sufczyn/3.png)
 
-##### Eliminacja zmiennych quasi-losowych [[1]](#1)
+#### Eliminacja zmiennych quasi-losowych [[1]](#1)
 ![quasi](docs/quasi.png)
 
->Ostatnie 365 dni ma zmienność bliską do wyniku z ostatniego dnia do setnej części po przecinku.
->![quasi](docs/3year.png)
-
+> Ostatnie 365 dni ma zmienność bliską do wyniku z ostatniego dnia do setnej części po przecinku.
 ```matlab
 quasiZmiennosc7lat =
 
@@ -25,13 +23,7 @@ quasiZmiennosc3lat =
 
 ```
 >Wniosek: 
-Do dobrego modelu wystarczyłyby 3 lata zbierania temperatur
-
-<!--
-<a id="1">[1]</a> 
-Dijkstra, E. W. (1968). 
-Go to statement considered harmful. 
-Communications of the ACM, 11(3), 147-148. -->
+> Do dobrego modelu wystarczyłyby 3 lata zbierania temperatur
 
  ## References
 <a id="1">[1]</a> 
@@ -43,5 +35,5 @@ Co robi woda we Wszechświecie? Łukasz Lamża
 https://www.youtube.com/watch?v=NKEYlT7iFAY
 
 
-###### ToDo: 
+##### ToDo: 
 - modelowanie cieczy pośredniczącej
