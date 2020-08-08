@@ -11,7 +11,9 @@
 
 ## Prezentacja danych ToDo
 
-### Eliminacja zmiennych quasi-losowych [[1]](#1)
+### Eliminacja  quasi-zmienności [[1]](#1)
+> porządane serie wartości powyżej przerywanej
+> ToDo okno ruchome 1 roku( które lata najbardziej odstają)
 ![quasi](docs/quasi.png)
 
 > Ostatnie 365 dni ma zmienność bliską do wyniku z ostatniego dnia do setnej części po przecinku.
@@ -26,8 +28,9 @@ quasiZmiennosc3lat =
     0.3894
 
 ```
->Wniosek: 
-> Do dobrego modelu wystarczyłyby 3 lata zbierania temperatur
+> Wniosek: 
+> 
+> Do dobrego modelu wystarczyłyby 3 lata zbierania temperatur, z dokładnością do 0.3894 *C.
 
 ### Model ToDo
 
