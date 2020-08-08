@@ -1,5 +1,7 @@
 # Projekt [#Wodociągi 2020](https://matlab.mathworks.com/users/mwa0000016477570/Published/Wod20/mean/html/comparison2mean.html#2)
 
+[Wybrana pompa](pump.md)
+
 #### Abstract
 
 ![mail](docs/mail.png)
