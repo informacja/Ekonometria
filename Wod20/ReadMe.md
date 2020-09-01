@@ -44,6 +44,8 @@ Wyd. 3 popr. - Warszawa : Wydaw. Naukowe PWN, 2002. - 222, [2]
 https://www.youtube.com/watch?v=NKEYlT7iFAY
 Co robi woda we Wszechświecie? Łukasz Lamża 
 
+Fizyka chmur - Prof. Wojciech Grabowski
+https://zapytajfizyka.fuw.edu.pl/wyklady/wojciech-grabowski/
 
 ##### ToDo: 
 - [modelowanie cieczy pośredniczącej](modelowanie cieczy pośredniczącej)
