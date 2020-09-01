@@ -40,9 +40,10 @@ Nowak, Edward (1951- ).
 Zarys metod ekonometrii : zbiór zadań<br>
 Wyd. 3 popr. - Warszawa : Wydaw. Naukowe PWN, 2002. - 222, [2]
 
-Co robi woda we Wszechświecie? Łukasz Lamża 
+
 https://www.youtube.com/watch?v=NKEYlT7iFAY
+Co robi woda we Wszechświecie? Łukasz Lamża 
 
 
 ##### ToDo: 
-- modelowanie cieczy pośredniczącej
+- [modelowanie cieczy pośredniczącej](modelowanie cieczy pośredniczącej)
