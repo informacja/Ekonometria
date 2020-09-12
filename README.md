@@ -1,0 +1,10 @@
+# Ekonometria
+Feedforward, korrelation, Laplace and more :smile:
+
+
+
+## Mapa myśli
+[
+  ![](https://static.coggle.it/diagram/X1ynu04r0lOGNYdD/thumbnail?cachebust=3&mtime=2020-09-12T10:54:54.767Z)
+  ![](https://coggle-downloads-production.s3.eu-west-1.amazonaws.com/8b3349c519ee2d81d77b9a5f53e2fa8fafc6c869c36d6b23a302172d085b0cc4/Ekonometria.png?AWSAccessKeyId=ASIA4YTCGXFHINL4VCGR&Expires=1599929917&Signature=Wq4h10VCkeYDmGs8StM6UYLZ0%2Fo%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEIP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCWV1LXdlc3QtMSJHMEUCIQCcZZ4b6ttl4sX03YPmbnXKk1UFqNgJTRHqUVzGfURYewIgCX3PVSgZ5AaMCxB0yzZoyqtHmBQSAnR0rnn6%2B0%2F8VZAq3wEIjP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw4Nzc0NTMwMzE3NTgiDPtLqjM%2FQh0CPYJlrCqzARHmwSYc0R8CLc8hWx4Ez%2FC7EFZJ1ijYm4ZAzFcZ9hS0x3Gq8PECfbFRFdQ4bA3xUYhyyuTjPsnFH%2B7ROrrbbrFDrdxEbgC4DEcrm7xRyD77PXh0A1WwbVo04etvOKu8Kjs%2FcTsb9bGDh1wp4a6CMSC0DbvWFGCK1VHW0VMLGVn2V96tltUM9vVW9TRt9N41voaYb7WS%2B5rETlX2780pwidR2ykAE6R%2BqrgOcnck2uYfjycXMIrT8voFOuAB3YlDnKJJjDLIq2yngbQ521oXqsfqolpGQ%2FSoISI1EduyReAT%2FQaGDPy1LzsKDKE5eLChGvfz8y1sYQui5v07r9rpKKbkqaq70ueE0x7l07Y%2FysDNfb51RPhtW4ijLVoJXfVdbWrqTrWByNGq%2FwDUnkaPRAWY487mcZ%2F3GFOcghTplKzYVsYf2RCGzbAKXAYH9RHcUiIVvnBT3hPrENcwZ6gYvFCL7ttoeDBQr0VjMXxneFkPC%2F0k13Mn0a9WH6Qicx%2BmTiV4Og5FNVOrvVi24%2ByWTBgX7gUXyLCWd3RXM3w%3D)
+](https://coggle.it/diagram/X1ynu04r0lOGNYdD/t/-/0ed6811a85e318050e7acda43a862829a3514dc00623a3d8d229194f6f845da8) 
