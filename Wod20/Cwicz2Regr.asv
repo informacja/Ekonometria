@@ -50,7 +50,7 @@ subplot(2, 1, 2),   plot([1:length(Ah)],Ah(1:end),'b.-',nrOm+1,Ah(nrOm+1),'g^',1
 
 % plot(Ah([7 14]),'go'); plot([acept_level acept_level],'g:');
 % axis('tight');
-ylabel('Amplituda'); xlabel(sprintf('autoProponowane %i silne harmoniczne jako okres podstawowy (bazowa) nr = %s ',length(nrOm),  mat2str(nrOm))); title('Dziedzina czêstotliwoœci'); 
+ylabel('Amplituda'); xlabel(sprintf('autoProponowane %i silne harmoniczne jako czêsbazowa nr = %s ',length(nrOm),  mat2str(nrOm))); title('Dziedzina czêstotliwoœci'); 
 legend('Proponowane','ro Wybrane');
 %% Eliminacja zmiennych quasi-sta³ych
 vi(length(data)) = 0;
@@ -59,12 +59,12 @@ for (i = 1:length(data))
 end
 quasiZmiennosc7lat = sum(vi(end-364:end))/365 - vi(end)
 quasiZmiennosc3lat = sum(vi(2:1095))/1095 - vi(end)
-figPW; figure(11), plot([1:length(data)],vi(1:end),[1 length(data)],[mean(data)/std(data) mean(data)/std(data)],'r--')
+figure(11), plot([1:length(data)],vi(1:end),[1 length(data)],[mean(data)/std(data) mean(data)/std(data)],'r--')
 title('Zmiennoœæ danych opisuj¹cych'); ylabel(['(œredna / odchylenie stanadrdowe) [' char(176) 'C]']);
 xlabel('pytanie kiedy przerwaæ? Ile lat wystarczy by iloœæ danych uznaæ za wystarczaj¹c¹? [dni]')
 %% G³êbokie myœlenie = prezentacja danych + wyobra¿enia
 kol1 = 'r*'; if(Ldanych > 80) kol1 = 'r.'; end
-figPW; figure(2), subplot(2, 1, 1);
+figure(2), subplot(2, 1, 1);
 plot(x, Yemp, kol1);  ylabel('[*C]'); title('G³êbokie myœlenie = prezentacja danych + wyobra¿enia'); hold on
 
 % z = input(' ? jaka to funkcja ? !!!  <Ent> - co mogloby byc ?');
@@ -159,11 +159,11 @@ for (i = 1:Ldim)
     z(i) = alf * z0 + Kz * randn; % z - E symulowane
     z0 = z(i);
 end
-figPW;
+
 figure(2), subplot(2, 1, 2), plot(x, Yemp+sred_temp, kol1, v, yo+sred_temp, 'r', x, E+sred_temp, 'k', v, z+sred_temp, 'g'); hold on;
 %input(' co dalej ?? ');
 plot(v, yo + sigYv+sred_temp, 'b:', v, yo - sigYv+sred_temp, 'b:');
-plot(v, yo + sigYE+sred_temp, 'm:', v, yo - sigYE+sred_temp, 'm:'); figPW;
+plot(v, yo + sigYE+sred_temp, 'm:', v, yo - sigYE+sred_temp, 'm:');
 xlabel(sprintf('Ldanych=%d sigYf=%.3f sigEo=%.3f Km=%d udz.DyzychE=%.1f%%', Ldanych, sigYf, sigEo, Km, uLd)); ylabel([ 'Temperatura wody [' char(176) 'C]']);
 axis('tight'); title('Prognoza temperatury wody (Laboratorium £ukanowice)'); hold off;
 legend('Pomiary empiryczne','yo trend','E','zak³ócenia')

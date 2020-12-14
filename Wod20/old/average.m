@@ -5,7 +5,7 @@ filename = 'signalAll.csv';
 filename = 'sig.csv';
    
 %%
-[Temp] = readvars( append(folder,filename) );
+[Temp] = readvars( append(folder, filename) );
 L = length(Temp);
 figure(1)
 subplot 411; plot(Temp); title(filename); 
