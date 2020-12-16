@@ -1,5 +1,31 @@
 Publikacja nieoficjalna EAP piotrwpwsz@gmail.com
 
+> Z piątkowej rozmowy wynika, że jest to
+Pański projekt autorski prowadzony na kole naukowym w PWSZ.
+
+Tak, pomysł się zrodził podczas luźnych rozmów z wykładowcą.
+
+> Czy podobne rozwiązania są gdzieś stosowane? W tym momencie nie znam konkretnych.Czy jest to rozwiązanie optymalizacyjne, jeśli tak to jakiego rzędu oszczędności można wygenerować i czy dane rozwiązanie można zastosować u firmy zainteresowanej?
+
+Z modelu wynika do 65 GWh w skali roku, ale tutaj raczyłbym mieć wątpliwość, to tylko tabelka w arkuszu kalkulacyjnym
+
+> Trzeba wykonać wycenę wymienników i całego przedsięwzięcia w skali makro.
+
+W wycenie trzeba uwzględnić:
+a) czas użytkowania wymiennika (jeśli czas użytkowania będzie krótszy od czasu zwrotu to inwestycja nie wypali ;))
+b) wpływ wielkości (mocy) wymiennika do ceny (może się okazać, ze lepiej zainstalować kilka mniejszych wymienników - myślę, ze analizowane przedsięwzięcie będzie oparte o mały wymiennik wyjaśnienie dalej)
+c) do jakich celów ma być wykorzystana nadwyżka energetyczna? Szkoda, że szczyt przypada na miesiące letnie, w zimie zawsze można coś ogrzać (wymiana ciepła będzie miała większą sprawność niż przetwarzanie jej w inną formę energii). Można np. skupić się na zainstalowaniu małego wymiennika, który w ziemie mógłby zaspokoić potrzeby np ogrzania zakładu lub wspomóc ogrzewanie jakiegoś innego obiektu etc.
+d) cenę usługi montażu
+e) koszty utrzymania wymiennika (może się okazać że wymiennik jest całkowicie bezobsługowy)
+f) sprawdzić wpływ ewentualnego dodatkowego kosztu wynikającego ze wzrostu oporów przetłaczania medium przez wymiennik (jeśli opór będzie wysoki i trzeba będzie dołożyć energię do przepompowni to może okazać się że nie ma z tego rozwiązania oszczędności ;(
+g) itd.
+
+Temat można próbować sfinansować, ze środków własnych spółki na cele rozwojowe w kierunku generowania oszczędności lub innych zewnętrznych środków (aktualnie jesteśmy w punkcie przejściowych perspektyw więc może być problem z finansowaniem).
+
+Podsumowując myślę, ze Pańskie wyliczenia są dobrą podstawą do np. uzasadnienia wniosków o dofinansowanie.
+
+Myślę, że ciekawym projektem może być znalezienie potencjału na nadwyżki energetyczne w miesiącach letnich i to może być temat na jakieś innowacje
+
 # Projekt [#Wodociągi 2020](https://matlab.mathworks.com/users/mwa0000016477570/Published/Wod20/mean/html/comparison2mean.html#2)
 
 * [Wstęp](#wstęp)  
