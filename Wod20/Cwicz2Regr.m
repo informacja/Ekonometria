@@ -1,11 +1,11 @@
-%  Cel:
+%  toDo:
 % Czy cykl roczny jest istotny? 7 14 21
-% +  CSV wygenerowaæ - > time_data.mat
-% +  naprawiæ wykresy
-% +  dobraæ harmoniczne (cel czy cykl roczny jest istotny) brak harmonicznych
+% + CSV wygenerowaæ 
+% + naprawiæ wykresy
+% + dobraæ harmoniczne (cel czy cykl roczny jest istotny) Odp. Brak silnych harmonicznych
 % + uzup³niæ brak pomiarów z regresji do fft
 %   montecarlo
-
+ 
 %Cwicz2Regr
 % Regresja linowa - analiza czêstotliwoœciowa - metody numeryczne.
 clear all; 
@@ -74,7 +74,7 @@ plot(x, Yemp, kol1);  ylabel('[*C]'); title('G³êbokie myœlenie = prezentacja dan
 % z = input(' ? jaka to funkcja ? !!!  <Ent> - co mogloby byc ?');
 
 % za³. funkcji harmonicznej
-% nrOm = [7 14 21 28 56]; %nrOm; %[1 2 5 20 36 42 134 236 500 600];
+nrOm = [7 14 21 28 56]; %nrOm; %[1 2 5 20 36 42 134 236 500 600];
 
 om = 2 * pi / T * nrOm;
 % %% Projekt modelu - oblicz FId
