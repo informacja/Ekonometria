@@ -41,16 +41,17 @@ sigYf = std(Yemp);
 figure(1), subplot(2, 1, 1), plot(time, data); axis('tight'); 
 title('Dziedzina czasu'); xlabel('[dni]'); ylabel( '[*C]');
 legend(sprintf("Œrednia temperatura %.2f *C ", sred_temp))
-Ah = abs(fft(Yemp / Ldanych));  Ah = Ah(1:round(Ldanych / 6)); %nie dzia³a round w matlab 2010
-acept_level = 4.5 * mean(Ah); A(1:length(Ah)) = acept_level;
+Ah = abs(fft(Yemp / Ldanych));  Ah = Ah(1:round(Ldanych / 2 )); %nie dzia³a round w matlab 2010
 f0 = find(max(Ah) == Ah); % cykl roczny
+acept_level = f0 * mean(Ah)*1,618 ;  A(1:length(Ah)) = acept_level; % goldenRatio
 harm = [Ah(f0:f0:end)]; % To DO uwzglêdniaj harmoniczne roczne w modelu
 nrOm = find(Ah > acept_level) - 1; 
-subplot(2, 1, 2),   plot([1:length(Ah)],Ah(1:end),'b.-',nrOm+1,Ah(nrOm+1),'g^',1:length(Ah),A,'r--');  
-
+subplot(2, 1, 2),
+ semilogx([1:length(Ah)],Ah(1:end)); hold on;
+    plot([1:length(Ah)],Ah(1:end),'b.-',nrOm+1,Ah(nrOm+1),'g^',1:length(Ah),A,'r--');  hold off
 % plot(Ah([7 14]),'go'); plot([acept_level acept_level],'g:');
 % axis('tight');
-ylabel('Amplituda'); xlabel(sprintf('autoProponowane %i silne harmoniczne jako okres podstawowy (bazowa) nr = %s ',length(nrOm),  mat2str(nrOm))); title('Dziedzina czêstotliwoœci'); 
+ylabel('Amplituda'); xlabel(sprintf('autoPropozycja: %i silnch harmonicznch jako okres podstawowy (cz. bazowa f0=%g-1) nr harm. = %s ',length(nrOm), f0, mat2str(nrOm))); title('Dziedzina czêstotliwoœci'); 
 legend('Proponowane','ro Wybrane');
 %% Eliminacja zmiennych quasi-sta³ych
 vi(length(data)) = 0;
@@ -75,14 +76,16 @@ nrOm = [7 14 21 28 56]; %nrOm; %[1 2 5 20 36 42 134 236 500 600];
 om = 2 * pi / T * nrOm;
 % %% Projekt modelu - oblicz FId
 [FId, Ldanych, Lh, Kd] = modelRharm(x, om); % za³. funkcji harmonicznej
-% dodaæ dane z dziurami
+
+Yemp=Yemp'; % teraz maj¹c model, dodaæ dane z dziurami
+
 % =============== wybieramy model: Lhm i Km ===================
-Lhm = 5;
-% =============================================================
-Yemp=Yemp';
+Lhm = 5; % Lhm = Kd/2;
 Km = 2 * Lhm; % Przyjety (arbitralnie) rzad modelu  Kolumny Macierzy
+% =============================================================
+
 FI(:, 1:Km) = FId(:, 1:Km);
-% dalej ju¿ tylko numeryka i grafika
+% dalej ju¿ tylko numeryka i grafika dla wyobra¿enia warstwy fizycznej
 Gd = FI' * FI;
 G = inv(Gd);
 
