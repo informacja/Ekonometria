@@ -169,12 +169,12 @@ figPW;
 figure(2), subplot(2, 1, 2), plot(x, Yemp+sred_temp, kol1, v, yo+sred_temp, 'r', x, E+sred_temp, 'k', v, z+sred_temp, 'g'); hold on;
 %input(' co dalej ?? ');
 plot(v, yo + sigYv+sred_temp, 'b:', v, yo - sigYv+sred_temp, 'b:');
-plot(v, yo + sigYE+sred_temp, 'm:', v, yo - sigYE+sred_temp, 'm:'); figPW;
+plot(v, yo + sigYE+sred_temp, 'm:', v, yo - sigYE+sred_temp, 'm:'); 
 xlabel(sprintf('Ldanych=%d sigYf=%.3f sigEo=%.3f Km=%d udz.DyzychE=%.1f%%', Ldanych, sigYf, sigEo, Km, uLd)); ylabel([ 'Temperatura wody [' char(176) 'C]']);
 axis('tight'); title('Prognoza temperatury wody (Laboratorium £ukanowice)'); hold off;
 legend('Pomiary empiryczne','yo trend','E','zak³ócenia')
 yearProgno = [1:365:Xmax]; xticks(yearProgno);
-xticklabels(round(yearProgno/366)+2013)% end
+xticklabels(round(yearProgno/366)+2013); figPW;% end
 
 tempe = Yo(1:365)+sred_temp;
 Ttyg = [];
