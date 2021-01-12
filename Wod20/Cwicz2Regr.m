@@ -5,6 +5,7 @@
 % + dobraæ harmoniczne (cel czy cykl roczny jest istotny) Odp. Brak silnych harmonicznych
 % + uzup³niæ brak pomiarów z regresji do fft
 %   montecarlo
+%   MSE
  
 %Cwicz2Regr
 % Regresja linowa - analiza czêstotliwoœciowa - metody numeryczne.
