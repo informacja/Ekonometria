@@ -1,37 +1,11 @@
-%  toDo:
-% Czy cykl roczny jest istotny? 7 14 21
-% + CSV wygenerowaæ 
-% + naprawiæ wykresy
-% + dobraæ harmoniczne (cel czy cykl roczny jest istotny) Odp. Brak silnych harmonicznych
-% + uzup³niæ brak pomiarów z regresji do fft
-%   montecarlo
-%   MSE
- 
 %Cwicz2Regr
 % Regresja linowa - analiza czêstotliwoœciowa - metody numeryczne.
 clear all; 
+% toDo:
+%   montecarlo
+%   MSE
 
-% if (verLessThan('matlab', '8.4')) % for MATLAB 2010
-% %     filename = '2018_space.csv'; delimiterIn = ',';
-% %     data = importdata(filename, delimiterIn)'; % wektor pionowy (szafa)
-%     load('time_data.mat')
-%     x = datenum(time'); tR = [1:max(x) - min(x) + 2]; % time Real
-%     L = length(x);
-%     T = max(x) - min(x) + 1;
-%     L = length(data); x = [1:L]; tR = x; % generowanie numeru próbki dla MatLab 2010
-% %     time = x;
-% 
-% else % for MATLAB 2020
-%     [time, data] = loadEmp(2013, 2019, 'Raport_Pomiarow_anonim.xls'); % lata od 2013 do 2019
-%     x = datenum(time'); tR = [1:max(x) - min(x) + 2]; % time Real
-% 
-%     if (length(x) == length(unique(x))) fprintf(1, 'ok - 1 pomiar dziennie')% To do
-%     else length(unique(x)); error ('kilka pomiarów jednego dnia lub inny powód powtórzeñ w wektorze [time]');  end
-% end
-%----------------------------------------------------------------------
-
-%[rTemp,Temp,nTim,czas,lTim,lrT]=dane1()
-[Yemp,data,time,x,lTim,lrT]=dane(); 
+[Yemp, data, time, x, lTim, lrT] = dane(); 
 % [size(Yemp);size(data);size(time);size(x);size(lTim);size(lrT)] % debug
 % ------------------------------------------------------------------------
 % UWAGA do widma furerowiskiego musi byæ spe³nione za³o¿enie o równomiernym
@@ -42,9 +16,11 @@ Ldanych = length(x); % size(x, 2);
 T = max(x) - min(x) + 1; sred_temp = mean(Yemp);
 Yemp = dtrend(Yemp, 1); %sredAfterDentrend = mean(Yemp);
 sigYf = std(Yemp);
+
 figure(1), subplot(2, 1, 1), plot(time, data); axis('tight'); 
-title('Dziedzina czasu'); xlabel('[dni]'); ylabel( '[*C]');
+title('Dane w dziedzinie czasu'); xlabel('[dni]'); ylabel( 'Temperatura [*C]');
 legend(sprintf("Œrednia temperatura %.2f *C ", sred_temp))
+
 Ah = abs(fft(Yemp / Ldanych));  Ah = Ah(1:round(Ldanych / 2 )); %nie dzia³a round w matlab 2010
 f0 = find(max(Ah) == Ah); % cykl roczny
 acept_level = f0 * mean(Ah)*1,618 ;  A(1:length(Ah)) = acept_level; % goldenRatio
@@ -52,11 +28,12 @@ harm = [Ah(f0:f0:end)]; % To DO uwzglêdniaj harmoniczne roczne w modelu
 nrOm = find(Ah > acept_level) - 1; 
 subplot(2, 1, 2),
  semilogx([1:length(Ah)],Ah(1:end)); hold on;
-    plot([1:length(Ah)],Ah(1:end),'b.-',nrOm+1,Ah(nrOm+1),'go',1:length(Ah),A,'r--');  hold off;
-% plot(Ah([7 14]),'go'); plot([acept_level acept_level],'g:');
-% axis('tight');
-ylabel('Si³a wzmocnienia'); xlabel(sprintf('autoPropozycja: %i silnch harmonicznch jako okres podstawowy (cz. bazowa f0=%g-1) nr harm. = %s ',length(nrOm), f0, mat2str(nrOm))); title('Analiza w dziedzinie czêstotliwoœci'); 
-legend('Proponowane', 'ro Wybrane');
+    plot([1:length(Ah)],Ah(1:end),'b.-',nrOm+1,Ah(nrOm+1),'ro',1:length(Ah),A,'r--'); 
+    xline(f0, 'b--'); for(i=f0:f0:f0*10) plot(i,Ah(i), 'g.'); end; hold off;
+ axis('tight');
+ylabel('Si³a wzmocnienia'); xlabel(sprintf('Czêstotliwoœci\n autoPropozycja: %i silnch harmonicznch jako okres podstawowy (cz. bazowa f0=%g-1)\n nr harm. = %s ',length(nrOm), f0, mat2str(nrOm))); title('Analiza w dziedzinie czêstotliwoœci'); 
+legend('Moda', 'czêstotliwoœci', 'Proponowane f0', 'Próg cz. bazowych');
+
 %% Eliminacja zmiennych quasi-sta³ych
 vi(length(data)) = 0;
 for (i = 1:length(data))
@@ -76,7 +53,12 @@ plot(x, Yemp, kol1);  ylabel('[*C]'); title('G³êbokie myœlenie = prezentacja dan
 
 % za³. funkcji harmonicznej
 nrOm = [7 14 21 28 56]; %nrOm; %[1 2 5 20 36 42 134 236 500 600];
+figure(1);
+    for i = 1:length(nrOm)
+        xline(nrOm(i)+1,'g--'); 
+    end
 
+figure(2);
 om = 2 * pi / T * nrOm;
 % %% Projekt modelu - oblicz FId
 [FId, Ldanych, Lh, Kd] = modelRharm(x, om); % za³. funkcji harmonicznej
@@ -173,10 +155,11 @@ plot(v, yo + sigYv+sred_temp, 'b:', v, yo - sigYv+sred_temp, 'b:');
 plot(v, yo + sigYE+sred_temp, 'm:', v, yo - sigYE+sred_temp, 'm:'); 
 xlabel(sprintf('Ldanych=%d sigYf=%.3f sigEo=%.3f Km=%d udz.DyzychE=%.1f%%', Ldanych, sigYf, sigEo, Km, uLd)); ylabel([ 'Temperatura wody [' char(176) 'C]']);
 axis('tight'); title('Prognoza temperatury wody (Laboratorium £ukanowice)'); hold off;
-legend('Pomiary empiryczne','yo trend','E','zak³ócenia')
+legend('Pomiary empiryczne','Trend','Zak³ócenia rzeczywiste','Zak³ócenia estymowane')
 yearProgno = [1:365:Xmax]; xticks(yearProgno);
 xticklabels(round(yearProgno/366)+2013); figPW;% end
 
+% Œrednia temperatura w tygodniu z wielu lat (do arkusza kalkulacyjnego)
 tempe = Yo(1:365)+sred_temp;
 Ttyg = [];
 for (t = 1:52)
@@ -187,7 +170,12 @@ for (t = 1:52)
     Ttyg(t) = Mdt/7;
 end
 Ttyg = Ttyg'; 
+
+tau = 6000 / 300; % poj zbior. / przewp³yw kwantowy
+% wartoœæ oczekiwana po rozowie z technologami: 18* * 0.05
+
+%charak statyczne, moc max
 % clipboard ('copy',Ttyg');
-return
+% % return
 [a,fname,c] = fileparts( mfilename('fullpath'));  % nazwa tego m-pliku
 print( strcat(fname,'.png'),'-dpng');              % zapisz ostatn¹ figurê

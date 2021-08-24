@@ -1,5 +1,26 @@
 function [rTemp,Temp,nTim,czas,lTim,lrT]=dane()
 
+
+% if (verLessThan('matlab', '8.4')) % for MATLAB 2010
+% %     filename = '2018_space.csv'; delimiterIn = ',';
+% %     data = importdata(filename, delimiterIn)'; % wektor pionowy (szafa)
+%     load('time_data.mat')
+%     x = datenum(time'); tR = [1:max(x) - min(x) + 2]; % time Real
+%     L = length(x);
+%     T = max(x) - min(x) + 1;
+%     L = length(data); x = [1:L]; tR = x; % generowanie numeru próbki dla MatLab 2010
+% %     time = x;
+% 
+% else % for MATLAB 2020
+%     [time, data] = loadEmp(2013, 2019, 'Raport_Pomiarow_anonim.xls'); % lata od 2013 do 2019
+%     x = datenum(time'); tR = [1:max(x) - min(x) + 2]; % time Real
+% 
+%     if (length(x) == length(unique(x))) fprintf(1, 'ok - 1 pomiar dziennie')% To do
+%     else length(unique(x)); error ('kilka pomiarów jednego dnia lub inny powód powtórzeñ w wektorze [time]');  end
+% end
+%----------------------------------------------------------------------
+
+
 % startYear = 2013;
 % numdays = datenum({'06/01/13'},'dd/mm/yy') - datenum({'31/12/19'},'dd/mm/yy')
 % data(-numdays-26) % 29 lutego 2016 % 4,2 *C
