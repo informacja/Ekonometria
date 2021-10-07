@@ -19,8 +19,7 @@ Ld=length(x(:,1)); Lx=length(x(1,:));
 xmin=min(x(:,1)'); xmax=max(x(:,1)'); 
 if(Lx==1)
     m=0;
-    k=0; m=m+1;  F(:,m)=ones(Ld,1); Af(m,1)=99; %Tx(m).nf=''; % wej. sta³ej (obowi¹zkowe)
-    
+    k=0; m=m+1;  F(:,m)=ones(Ld,1); Af(m,1)=99; %Tx(m).nf=''; % wej. sta³ej (obowi¹zkowe)    
     k=1; m=m+1;  F(:,m)=x.^k;  Af(m,1)=96.8; %-0.8;  %Tx(m).nf=sprintf('x_1');
     k=2; m=m+1;  F(:,m)=x.^k;  Af(m,1)=0.;    %Tx(m).nf=sprintf('x_1^%d',k);
     k=3; m=m+1;  F(:,m)=x.^k;  Af(m,1)=-85; %-100.;  %-90.;  %-70.;  %-11.2;  %Tx(m).nf=sprintf('x_1^%d',k);

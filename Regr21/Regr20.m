@@ -9,6 +9,8 @@ Ld=300;
 Lx=1; 
 xmin=0.62; xmax=4.1; dx=(xmax-xmin)/(Ld-1); 
 x=[xmin:dx:xmax]';
+% x = dane()'; plot (x); 
+% Ld=length(x); xmin=min(x); xmax=max(x); dx=(xmax-xmin)/(Ld-1); 
 if(Lx==2)
     wx2=dx/3; 
     x=[x x+wx2*(rand(Ld,1)-0.5)]; % drugie wejœcie jest zradomizowane wzgl. 1szego 

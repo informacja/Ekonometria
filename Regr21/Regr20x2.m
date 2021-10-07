@@ -3,23 +3,29 @@
 clear all;
 wspZ=-0.1; % wzgl odch.std
 % defin. x
-Ld=30; 
+Ld=30; F = @(X)(X.^2+X-1);
 w=0.12; x(:,1)=[1:Ld]'*w+0.5; 
 xmin=0.5*w+0.5; xmax=(Ld-0.5)*w+0.5; dx=(xmax-xmin)/(Ld-1);
 x(:,2)=[xmin:dx:xmax]'; 
-[Yemp,Yteor,sigfZ,Af]=obiekt(x,wspZ); % Pobranie danych
+% x(:,2)=F([xmin:dx:xmax])'; 
+[Yemp,Yteor,Ld,xmin,xmax,Lx,Yteor,wspZ,Af,F]=obiekt(x,wspZ); % Pobranie danych
 % Wizualizacja
 figure(100);
 % Hipotetycz. zakl.
 Lxh=17000; xh(:,1)=w*[1:Lxh]'/Lxh*Ld+0.5; 
 dxh=(xmax-xmin)/(Lxh-1);
-xh(:,2)=[xmin:dxh:xmax]; 
+xh(:,2)=[xmin:dxh:xmax]; sigfZ = wspZ;
 Yh=obiekt(xh,sigfZ); % symulacja danych hipotet.
 plot(xh,Yh,'c.');
-hold on; plot(x,Yemp,'k*',x,Yteor,'k:'); hold off;
+hold on; plot(x,Yemp,'y*',x,Yteor,'k:'); hold off;
 xlabel('Dane i funk.Igo rodz. oraz hipotet.punkty pomiarowe'); axis('tight');
 % ====== Teraz musimy zaprojekt. model ==================
 [FI,Kmf,Tx]=model2(x);  % pe³na macierz wejœæ uogóln dla danych x
+nrOm = [7 14 21 28 56]; %nrOm; %[1 2 5 20 36 42 134 236 500 600];
+T=max(x)-min(x); T = T(1)+T(2)/2+1;
+om = 2 * pi / T * nrOm;
+% %% Projekt modelu - oblicz FId
+% [FId, Ldanych, Lh, Kd] = modelRharm(x, om); % za³. funkcji harmonicznej
 % ====== Teraz standardowa regresja krokowa =====================
 istot=ones(1,Kmf); dalej=1; 
 tStkryt=2; mintSt=-1
@@ -44,11 +50,11 @@ while(dalej)
     k=0; mintSt=1.e40; 
     fprintf(1,'\nWspolczynniki i test Studenta - RCN=%.5g \n',RCN); 
     for(m=1:Kmf)
-        if(istot(m)) 
+        if(istot(m))
            k=k+1;  
            tSt(k)=abs(Am(k))/sqrt(KA(k,k)); 
            if(tSt(k)<mintSt && m>1) kminSt=m; mintSt=tSt(k); end
-           fprintf(1,'Am(%.2d)=%5.2f tSt(%2d)=%5.2f ...... Af(%2d)=%5.2f\n',m,Am(k),m,tSt(k),m,Af(m));
+           fprintf(1,'Am(%.2d)=%5.2f tSt(%2d)=%5.2f ...... Af(%2d)=%5.2f\n',m,Am(k),m,tSt(k),m,Af(m)); %%Af(m)
         else
            fprintf(1,'Am(%.2d)= 0.00 tSt(%2d)=***** ...... Af(%2d)=%5.2f\n',m,m,m,Af(m));
         end
@@ -92,4 +98,5 @@ while(dalej)
         istot(kminSt)=0; 
         fprintf(1,'RCN=%.4g Usuniêto cz³on %d %s     ',RCN,kminSt,Tx(kminSt).nf); 
     end
+%     pause(0.001);
 end
