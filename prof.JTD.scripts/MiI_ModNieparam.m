@@ -96,13 +96,13 @@ for(k3=2:L3)
     axis('tight'); 
 end
 subplot(3,3,2); title(txt); 
-% figure(6)
-% for(k3=2:L3)
-%     subplot(3,3,k3-1); 
-%     waterfall(Mod(k3).ym); 
-%     xlabel(sprintf('v3=%.3f',v3(k3))); ylabel='y(v3,v2,v1)'; 
-%     axis('tight'); 
-% end
-% subplot(3,3,2); title(txt); 
+figure(6)
+for(k3=2:L3)
+    subplot(3,3,k3-1); 
+    waterfall(Mod(k3).ym); 
+    xlabel(sprintf('v3=%.3f',v3(k3))); ylabel='y(v3,v2,v1)'; 
+    axis('tight'); 
+end
+subplot(3,3,2); title(txt); 
 
-%waterfall(Mod(5).ym); mesh(Mod(5).ym)
+waterfall(Mod(5).ym); mesh(Mod(5).ym)

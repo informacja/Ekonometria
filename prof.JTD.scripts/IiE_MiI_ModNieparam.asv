@@ -1,16 +1,16 @@
 % Program do estymacji nieparametrycznej; 
-% Obiekt; y(n)=f(V(k,n))+Z(n)
+Obiekt; y(n)=f(V(k,n))+Z(n)
 % Wspolczynniki A=[a0 av1 av2 av3 av12 av13 av23 av1_2 av2_2 av3_2]
 %a0=1; av1=1.5; av11=0; av2=1.5; av3=1.5; av12=15; av13=15; av23=15; av1_2=12; av2_2=12; av3_2=20;
 a0=1; av1=15; av11=-10; av2=1.5; av3=15; av12=1.5; av13=1.5; av23=1.5; av1_2=1.2; av2_2=-1.2; av3_2=2.0;
 A=[a0 av1 av2 av3 av12 av13 av23 av1_2 av2_2 av3_2]; 
 Ld=500; 
-V=rand(3,Ld); %V = [1:Ld;1Ld;1:Ld];
+V=rand(3,Ld); 
 Yf=a0+av1*V(1,:)+av11*V(1,:).^2+av2*V(2,:)+av3*V(3,:)+av12*V(1,:).*V(2,:)+av13*V(1,:).*V(3,:)+av23*V(2,:).*V(3,:)+av1_2*V(1,:).^2+ av2_2*V(2,:).^2+av3_2*V(3,:).^2;
 sigZ=0.01;
 DY=max(Yf)-min(Yf); Z=sigZ*DY*randn(1,Ld); 
 Y=Yf+Z;
-rKern=0.2; typK='c'; typK='p'; %typK='t'; typK='g';
+rKern=0.2; typK='c'; typK='p'; typK='t'; typK='g';
 r2Kern=rKern^2; wcKern=pi/(rKern/2); wtKern=1/(rKern); tsig=1.5; wgKern=tsig/(r2Kern)/2;
 txK=''; if(typK=='g') txK='\sigma_g'; txK=[sprintf('=%.1f*',tsig) txK]; end 
 Lobl=200; dv=1/(Lobl-1); v=[0:dv:1]; Lobl=length(v); dKvobl=Lobl/10; 
@@ -33,7 +33,7 @@ for(k=1:dKvobl: Lobl)
                             r2Dv=r2Dv+(V(1,n)-v(i))^2; 
                             if(r2Dv<r2Kern) 
                                 switch(typK)
-                                    case 'c', wy=sqrt(r2Dv)*wcKern; lyS=lyS+wy; Sy=Sy+wy*Y(n); 
+                                    case 'c', wy=sqrt(r2Dv)*wrKern; lyS=lyS+wy; Sy=Sy+wy*Y(n); 
                                     case 'p', lyS=lyS+1; Sy=Sy+Y(n);  
                                     case 't', wy=1-sqrt(r2Dv)*wtKern; lyS=lyS+wy; Sy=Sy+wy*Y(n);
                                     case 'g', wy=exp(-r2Dv*wgKern); lyS=lyS+wy; Sy=Sy+wy*Y(n);
