@@ -73,6 +73,9 @@ Przygotowanie danych obejmuje uśrednienie pomiarów nadpróbkowanych (dziennych
 > Prognoza temperatur na 2 przyszłe lata. Z dokładnością do 3 dni w przód (*T alpha*) na podstawie historii, zaniku stałej czasowej
 > 
 > ![Dopasowanie i prognoza](docs/Wod20_2.png)
+[
+![Opis](docs/Wod20.png)
+](https://coggle.it/diagram/X1tfrE37tOJNi-rW/t/wod20)
 
 # Koniec części oficjalnej  
 ### Dalsza część instrukcji wykracza poza podstawowy zakres materiału, czytelnik czyta na własną odpowiedzialność :wink:
